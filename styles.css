@@ -1,0 +1,50 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic);
+
+html {
+    background-color: #909090;
+    padding: 1rem;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Source Sans Pro', sans-serif; font-size: 18px; font-weight: 400;
+}
+
+svg {
+	color: white;
+	display: block;
+	margin: 0 auto;
+	max-width: 1000px;
+}
+
+/* Don't change anything here */
+path, rect {
+	fill: currentColor;
+    stroke: #a0a0a0;
+	stroke-width: 1;
+    text-align: center;
+    justify-content: center;
+}
+
+/* Color of the two letter abbreviations */
+.stateText {
+    fill: #d0d0d0;
+}
+
+text {
+    /* text-anchor: middle; */
+    /* z-index: 1; */
+    /* color: white; */
+}
+
+/* Easiest way to color all states */
+a {
+    color: #000040;
+    transition: color 0.7s;
+}
+
+/* Color the hovered state */
+a:hover {
+    /* This is the state hover color */
+    color: #707070;
+	transition: color 0.7s;
+}
