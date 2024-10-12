@@ -2,7 +2,7 @@
 const xOffset = 80;
 const yOffset = 0;
 
-const usMap = `<svg id = "svgMap" xmlns="http://www.w3.org/2000/svg" viewBox="${xOffset},${yOffset} 1000,589">
+const usMapHtml = `<svg id = "svgMap" xmlns="http://www.w3.org/2000/svg" viewBox="${xOffset},${yOffset} 1000,589">
 	<a href="#" id="MA">
 		<title>Massachusetts</title>
 		<path data-id="MA" d="m956.312 153.05-.291-.193v.29l.29-.096zm-2.912-2.62.68-.291v-.388l-.68.68zm12.036-7.57-.097-1.36-.194-.776.29 2.135zm-42.417-9.998-.68.29-5.532 1.651-1.941.68-2.233.679-.776.291v.291l.291 5.048.291 4.659.291 4.27.486.292 1.747-.486 7.862-2.33.194.486 13.977-5.338.097.194 1.262-.486 4.465-1.747 4.27 5.145.583-.486.291-1.456-.097 2.33h.97l.292 1.165.874 1.65 4.562-5.533 3.785 1.262.874-1.941 6.212-3.3-2.621-5.145.68 3.3-3.204 2.427-3.591.291-7.183-7.668-3.203-4.853 3.203-3.397-3.3-.194-1.359-3.204-.097-.194-5.532 6.018-12.23 4.077-3.98 1.262z" />
@@ -274,8 +274,7 @@ function injectUsMap(divId) {
 
     // inset the HTML code as a child of the specified <div> id
     let div = document.getElementById(divId);
-
-    div.insertAdjacentHTML("beforebegin", usMap)
+    div.innerHTML = usMapHtml;
 }
 
 // Convert two letter abbreviation to the full name 

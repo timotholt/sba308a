@@ -7,15 +7,54 @@
 
     <link rel="stylesheet" href="./styles.css">
 
+    <style>
+    .gridContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        /* grid-template-rows: 1fr 1fr 1fr 1fr 1fr; */
+        /* grid-auto-rows: 1fr; */
+        gap: 0px 0px;
+        /* grid-auto-flow: column; */
+        grid-template-areas:    "appTitle mapArea mapArea"
+                                "searchForm mapArea mapArea"
+                                "resultArea catInfo ownerInfo";
+        width: 1200px;
+    }
+
+    .appTitle { grid-area: appTitle; height: 10%; }
+    .appTitle ::first-letter { color: #d0d0d0; }
+
+    .searchForm { grid-area: searchForm; height: 10%;}
+    .searchForm ::first-letter { color: #d0d0d0; }
+
+    .mapArea { grid-area: mapArea; height: 10%; }
+    .mapArea ::first-letter { color: #d0d0d0; }
+
+    .resultArea { grid-area: resultArea; height: 10% }
+    .resultArea ::first-letter { color: #d0d0d0; }
+
+    .catInfo { grid-area: catInfo }
+    .catInfo ::first-letter { color: #d0d0d0; }
+
+    .ownerInfo { grid-area: ownerInfo }
+    .ownerInfo ::first-letter { color: #d0d0d0; }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="gridContainer">
+        <div class="appTitle"><h2>adopt a pet &#128008;&#128018;&#128021;&#128022;&#128001;</h2></div>
+        <div class="searchForm"><h4>search Form</h4></div>
+        <div class="mapArea" id="mapOfUsa"><h4>map of Usa</h4></div>
+        <div class="resultArea"><h4>result area</h4></div>
+        <div class="catInfo"><h4>cat info</h4></div>
+        <div class="ownerInfo"><h4>owner info</h4></div>
+    </div>
+
     <script type="module" defer src="./petnames.js"></script>
     <script type="module" defer src="./usmap.js"></script>
     <script type="module" defer src="./script.js"></script>
-
-</head>
-<body>
-    <div id="app">
-        <div id="mapOfUsa"></div>
-    </div>
-
 </body>
 </html>
