@@ -1,3 +1,5 @@
+export { injectUsMap, getStateName }
+
 // Reposition the SVG map as needed
 const xOffset = 80;
 const yOffset = 0;
@@ -267,8 +269,6 @@ const usMapHtml = `<svg id = "svgMap" xmlns="http://www.w3.org/2000/svg" viewBox
         <text class="stateText" text-anchor="middle" x="220" y="493">ak</text>
     </a>
 </svg>`;
-
-export { injectUsMap, getStateName }
 
 function injectUsMap(divId) {
 

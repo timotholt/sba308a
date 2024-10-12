@@ -1,5 +1,5 @@
 import { getPetName } from "./petnames.js";
-import { injectUsMap } from "./usmap.js";
+import { injectUsMap } from "./usmap/usmap.js";
 
 
 const mapOfUsa = injectUsMap("mapOfUsa");
