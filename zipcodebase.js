@@ -1,3 +1,5 @@
+export { zipCodebaseTest}
+
 // https://app.zipcodebase.com/email/verify
 const zipCodeBaseApiKey = "d6970140-8981-11ef-a30e-81649cbcd7aa";
 
@@ -11,7 +13,7 @@ const options = {
     url: `https://app.zipcodebase.com/api/v1/search?apikey=${zipCodeBaseApiKey}&codes=10005,10006`,
 };
 
-async function zipCodeTest() {
+async function zipCodebaseTest() {
     
     try {   
         const response = await axios.request(options);
