@@ -2,7 +2,7 @@ export { injectUsMap, getStateName }
 
 // Reposition the SVG map as needed
 const xOffset = 80;
-const yOffset = 0;
+const yOffset = 20;
 
 const usMapHtml = `<svg id = "svgMap" xmlns="http://www.w3.org/2000/svg" viewBox="${xOffset},${yOffset} 1000,589">
 	<a href="#" id="MA">
