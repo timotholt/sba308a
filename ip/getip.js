@@ -1,19 +1,28 @@
-export { getIp }
+export { fetchGeolocation, getZipcode }
 
-async function getIp() {
+let ip  = null;
+let zip = null;
+
+async function fetchGeolocation() {
     try {
         console.log('Fetching IP...');  
 
         const response = await axios.get('http://ip-api.com/json/');
         // console.log(response.data); 
+        ip = response.data.query;
+        zip = response.data.zip;
 
-        console.log(`(ASYNC) Your IP address is ${response.data.query} (${response.data.city}, ${response.data.regionName}, ${response.data.zip})`);
+        console.log(`(ASYNC) Your IP address is ${ip} (${response.data.city}, ${response.data.regionName}, ${zip})`);
 
         debugger;
     } catch (error) {
         console.error(error);
         debugger
     }
+}
+
+function getZipcode() {
+    return zip;
 }
 
 console.log("Loaded getip.js");
