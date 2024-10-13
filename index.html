@@ -52,7 +52,7 @@
         border: 2px solid var(--primary-background-color);
         padding: 0em;
         margin: 0em;
-        align-items: center;
+        /* align-items: center; */
         border-radius: 10px;
     }
 
@@ -60,11 +60,15 @@
         background-color: var(--primary-background-color);
         color: var(--primary-color);
         font-size: 1.2em;
+        letter-spacing: 0.05em;
+        font-weight: bold;
         text-align: center;
-        /* align-items: center; */
-        /* justify-content: center; */
         border-radius: 5px 5px 0px 0px;
-        padding: 0em 2em 0.2em 2em;
+        padding: 0.3em 2em 0.3em 2em;
+    }
+
+    .spacerRow {
+        height: 0.5em;
     }
     
     .formRow, .formSubmitRow {
@@ -89,6 +93,7 @@
 
     .formRowRightCol {
         width: 80%;
+        padding-right: 1em;
     }
 
     .formLabel {
@@ -154,11 +159,12 @@
         <div class id="searchFormColumn">
             <form id="searchForm">
                 <!-- Title of form -->
-                <div class="formTitle">search</div>
+                <div class="formTitle">find a pet</div>
                 <!-- Line #1 -->
+                <div class="spacerRow"></div>
                 <div class="formRow">
                     <div class="formRowLeftCol">
-                        <label class="formLabel" for="searchInput">string</label>
+                        <label class="formLabel" for="searchInput">name</label>
                     </div>
                     <div class="formRowRightCol">
                         <input class="formTextBox" name="searchInput" id="searchInput" type="text" autofocus placeholder="what are you looking for">
@@ -171,8 +177,11 @@
                     </div>
                     <div class="formRowRightCol">
                         <select name="dropDownSpecies" class="formDropdown" id="species">
-                            <option>cat</option>
-                            <option>dog</option>
+                            <option>&#128008;&nbsp;cat</option>
+                            <option>&#128021;&nbsp;dog</option>
+                            <option>&#128014;&nbsp;horse</option>
+                            <option>&#128022;&nbsp;pig</option>
+                            <option>&#128018;&nbsp;monkey</option>
                         </select>
                     </div>
                 </div>
@@ -183,7 +192,7 @@
                     </div>
                     <div class="formRowRightCol">
                         <select name="dropDownBreed" class="formDropdown" id="breed">
-                            <option>alpha</option>
+                            <option>any</option>
                             <option>beta</option>
                             <option>gamma</option>
                             <option>delta</option>
@@ -191,6 +200,32 @@
                         </select>
                     </div>
                 </div>
+                <!-- Line #4 -->
+                <div class="formRow">
+                    <div class="formRowLeftCol">
+                        <label for="dropDownDistance" class="formLabel">within</label>
+                    </div>
+                    <div class="formRowRightCol">
+                        <select name="dropDownDistance" class="formDropdown" id="distance">
+                            <option>within 25 miles</option>
+                            <option>within 50 miles</option>
+                            <option>within 100 miles</option>
+                            <option>within 250 miles</option>
+                            <option>within 500 miles</option>
+                            <option>no limit</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Line #5 -->
+                <div class="formRow">
+                    <div class="formRowLeftCol">
+                        <label for="dropDownBreed" class="formLabel">zip</label>
+                    </div>
+                    <div class="formRowRightCol">
+                        <input class="formTextBox" name="searchInput" id="searchInput" type="text" autofocus placeholder="5-digit code">
+                    </div>
+                </div>
+                
                 <div class="formSubmitRow">
                     <button id="searchFormSubmitButton" type="submit" value="submit">submit</button>
                 </div>
