@@ -7,4 +7,6 @@ const mapOfUsa = injectUsMap("mapOfUsa");
 const petName = getPetName("abj248l");
 
 
+
+await zipCodeTest()
 console.log(petName);

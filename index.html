@@ -7,6 +7,9 @@
 
     <link rel="stylesheet" href="./styles.css">
 
+    <!-- Fix the favicon 404 error -->
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
     <style>
 
     :root {
@@ -151,6 +154,12 @@
     }
 
     </style>
+
+        <!-- Third party libraries -->
+        <script defer src="./axios.min.js"></script>
+
+        <!-- include axios -->
+        <!-- <script type="module" defer src="https://unpkg.com/axios/dist/axios.min.js"></script>    -->
 </head>
 
 <body>
@@ -238,8 +247,13 @@
         <div class="ownerInfo"><h4>owner info</h4></div>
     </div>
 
-    <script type="module" defer src="./petnames.js"></script>
-    <script type="module" defer src="./usmap/usmap.js"></script>
-    <script type="module" defer src="./script.js"></script>
+
+
+    <!-- My code -->
+    <script type="module" src="./petnames.js"></script>
+    <script type="module" src="./usmap/usmap.js"></script>
+    <script type="module" src="./script.js"></script>
+
+    <script src="./zipcodebase.js"></script>
 </body>
 </html>
