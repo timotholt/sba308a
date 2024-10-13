@@ -48,4 +48,4 @@ function getPetName(petId) {
     return petNames[generateRandomIndex(petId)]
 }
 
-console.log("goodbye from petnames.js");
+console.log("Loaded petnames.js");

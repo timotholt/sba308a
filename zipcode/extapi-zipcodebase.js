@@ -58,4 +58,4 @@ async function zipCodebaseCodesInRadius(zipcode, radius) {
     }
 }
 
-console.log("goodbye from zipcodebase.js");
+console.log("Loaded extapi-zipcodebase.js");

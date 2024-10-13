@@ -5,9 +5,7 @@ export { zipcodesInRadius }
 
 async function zipcodesInRadius(zipcode, radius) {
 
-    debugger;
-
-    console.log(`zipcode: ${zipcode}, radius: ${radius}`);
+    console.log(`zipcodesInRadius : zipcode:${zipcode}, radius: ${radius}`);
 
     // Validate inputs
     if (zipcode === null || radius === null) {
@@ -18,11 +16,11 @@ async function zipcodesInRadius(zipcode, radius) {
     let f = (Number(radius) <= 148) ? zipApiCodesInRadius : zipCodebaseCodesInRadius;
 
     try {
-        await f(zipcode, radius);
+        let result = await f(zipcode, radius);
 
     } catch (error) {
         console.error(error);
     }
 }
 
-console.log("goodbye from zipcode.js");
+console.log("Loaded zipcode.js");

@@ -40,4 +40,4 @@ async function zipApiCodesInRadius(zipcode, radius) {
     }
 }
 
-console.log("goodbye from zipapi.js");
+console.log("Loaded extapi-zipapi.js");

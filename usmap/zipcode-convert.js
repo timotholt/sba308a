@@ -348,3 +348,5 @@ export function getStateCodeByZipcode(zipcode) {
 
     return stateInfo ? stateInfo.stateCode : null;
 }
+
+console.log("Loaded usmap/zipcode-convert.js");
