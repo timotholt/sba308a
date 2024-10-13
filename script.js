@@ -1,7 +1,8 @@
 import { getPetName } from "./petnames.js";
 import { injectUsMap } from "./usmap/usmap.js";
 // import { zipCodebaseTest } from "./zipcodebase.js";
-import { zipCodesInRadius } from "./zipapi.js";
+import { zipApiCodesInRadius } from "./zipapi.js";
+import { zipCodebaseCodesInRadius } from "./zipcodebase.js";
 
 const mapOfUsa = injectUsMap("mapOfUsa");
 
@@ -12,5 +13,6 @@ const petName = getPetName("abj248l");
 // await zipCodebaseTest()
 
 // Free API
-await zipCodesInRadius("90012", "5")
+// await zipApiCodesInRadius("90012", "5")
+await zipCodebaseCodesInRadius("90012", "5")
 console.log(petName);

@@ -1,21 +1,18 @@
 // zip-api.eu is totally free zip code API with no keys or authentication and no limits
-
-// Get a list of zipcodes in a radius of 5 km
 //
+// Documentation is at: https://zip-api.eu/en/
+//
+// Get a list of zipcodes in a radius of 5 km from 90012 in the USA
 // https://zip-api.eu/api/v1/radius/US-90012/5/km
 
-export { zipCodesInRadius }
+export { zipApiCodesInRadius }
 
-let getZipCodesInRadiusOptions = {
-    method: 'GET',
-    url: `https://zip-api.eu/api/v1/radius/US-90012/5/km`
-};
+// Don't change these values
+const sCountry = 'US';                                        // We always use US for the country
+const sUnits = 'mi'                                           // Miles = 'mi', Kilometers = 'km'
+const zipApiRadiusUrl = `https://zip-api.eu/api/v1/radius/`;
 
-let zipUrlRadius = `https://zip-api.eu/api/v1/radius/`;
-let sCountry = 'US';                                        // We always use US for the country
-let sUnits = 'mi'                                           // Miles = 'mi', Kilometers = 'km'
-
-async function zipCodesInRadius(zipcode, radius) {
+async function zipApiCodesInRadius(zipcode, radius) {
 
     if (zipcode === null) {
         throw new Error('Zipcode should not be null');
@@ -27,7 +24,7 @@ async function zipCodesInRadius(zipcode, radius) {
 
     let sZipcode = zipcode.toString();
     let sRadius = radius.toString();
-    let fullUrl = zipUrlRadius + sCountry + '-' + sZipcode + '/' + sRadius + '/' + sUnits;
+    let fullUrl = zipApiRadiusUrl + sCountry + '-' + sZipcode + '/' + sRadius + '/' + sUnits;
 
     // console.log(`https://zip-api.eu/api/v1/radius/US-90012/500/km`)
 
