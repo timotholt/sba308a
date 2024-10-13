@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="./styles.css">
 
     <style>
+
+    :root {
+        --primary-color: #d0d0d0;
+        --primary-background-color: #000040;
+    }
+
     .gridContainer {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -16,29 +22,128 @@
         gap: 0px 0px;
         /* grid-auto-flow: column; */
         grid-template-areas:    "appTitle mapArea mapArea"
-                                "searchForm mapArea mapArea"
+                                "searchFormColumn mapArea mapArea"
                                 "resultArea catInfo ownerInfo";
         width: 1200px;
     }
 
     .appTitle { grid-area: appTitle; height: 10%; }
-    .appTitle ::first-letter { color: #d0d0d0; }
+    .appTitle ::first-letter { color: var(--primary-color) }
 
-    .searchForm { grid-area: searchForm; height: 10%;}
-    .searchForm ::first-letter { color: #d0d0d0; }
-
+    .searchFormColumn { grid-area: searchForm; height: 10%; width: 20em; border: 2px solid white;}
+    /* .searchFormColumn { border: 1px solid #d0d0d0; } */
+    .searchFormColumn ::first-letter { color: var(--primary-color) }
+    
     .mapArea { grid-area: mapArea; height: 10%; }
-    .mapArea ::first-letter { color: #d0d0d0; }
+    .mapArea ::first-letter { color: var(--primary-color) }
 
     .resultArea { grid-area: resultArea; height: 10% }
-    .resultArea ::first-letter { color: #d0d0d0; }
+    .resultArea ::first-letter { color: var(--primary-color) }
 
     .catInfo { grid-area: catInfo }
-    .catInfo ::first-letter { color: #d0d0d0; }
+    .catInfo ::first-letter { color: var(--primary-color) }
 
     .ownerInfo { grid-area: ownerInfo }
-    .ownerInfo ::first-letter { color: #d0d0d0; }
+    .ownerInfo ::first-letter { color: var(--primary-color) }
 
+    #searchForm {
+        background: linear-gradient(180deg, hsla(220, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%);
+
+        border: 2px solid var(--primary-background-color);
+        padding: 0em;
+        margin: 0em;
+        align-items: center;
+        border-radius: 10px;
+    }
+
+    .formTitle {
+        background-color: var(--primary-background-color);
+        color: var(--primary-color);
+        font-size: 1.2em;
+        text-align: center;
+        /* align-items: center; */
+        /* justify-content: center; */
+        border-radius: 5px 5px 0px 0px;
+        padding: 0em 2em 0.2em 2em;
+    }
+    
+    .formRow, .formSubmitRow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.2em 2em 0.2em 2em;
+        margin: 0.3em 0em 0em 0em;
+        height: 2em;
+    }
+
+    .formSubmitRow {
+        margin-top: 0.8em;
+        margin-bottom: 0.8em;
+    }
+
+    .formRowLeftCol {
+        width: 20%;
+        text-align: right;
+        padding-right: 1em;
+    }
+
+    .formRowRightCol {
+        width: 80%;
+    }
+
+    .formLabel {
+        padding: 0%;
+        margin: 0%;
+        font-size: 1.1em;
+        text-align: right;
+        width: 100%;
+    }
+
+    /* basic properties for textboxes and dropdowns */
+    .formTextBox, .formDropdown {
+        border-color: var(--primary-background-color);
+
+        font-family: 'Source Sans Pro', sans-serif; font-size: 18px; font-weight: 400;
+        color: black;
+
+        border-radius: 5px;
+        border-width: 1px;
+        padding: 0em 0.0em 0em 0.5em;
+        width: 100%;
+        height: 1.6em;
+    }
+
+    .formDropdown {
+        height: 1.8em;
+        width: 104%;
+        padding: 0em 0.3em 0em 0.3em;
+        font-size: 1em;
+    }
+
+    #searchFormSubmitButton {
+
+        /* How to display the button */
+        /* display: inline-block; */
+
+        /* Size of button */
+        width: 5em;
+        height: 2.2em;
+
+        /* Spacing between button and text */
+        /* padding: 20px; */
+        /* margin: 4px 2px; */
+
+        /* Shape and color of button */
+        background-color: var(--primary-background-color);
+        border-radius: 4px;
+
+        /* Text inside button */
+        font-size: 1em;
+        text-align: center;
+        text-decoration: none;
+        align-items: center;
+        color: var(--primary-color);
+    }
 
     </style>
 </head>
@@ -46,7 +151,51 @@
 <body>
     <div class="gridContainer">
         <div class="appTitle"><h2>adopt a pet &#128008;&#128018;&#128021;&#128022;&#128001;</h2></div>
-        <div class="searchForm"><h4>search Form</h4></div>
+        <div class id="searchFormColumn">
+            <form id="searchForm">
+                <!-- Title of form -->
+                <div class="formTitle">search</div>
+                <!-- Line #1 -->
+                <div class="formRow">
+                    <div class="formRowLeftCol">
+                        <label class="formLabel" for="searchInput">string</label>
+                    </div>
+                    <div class="formRowRightCol">
+                        <input class="formTextBox" name="searchInput" id="searchInput" type="text" autofocus placeholder="what are you looking for">
+                    </div>
+                </div>
+                <!-- Line #2 -->
+                <div class="formRow">
+                    <div class="formRowLeftCol">
+                        <label for="dropDownSpecies" class="formLabel">species</label>
+                    </div>
+                    <div class="formRowRightCol">
+                        <select name="dropDownSpecies" class="formDropdown" id="species">
+                            <option>cat</option>
+                            <option>dog</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Line #3 -->
+                <div class="formRow">
+                    <div class="formRowLeftCol">
+                        <label for="dropDownBreed" class="formLabel">beed</label>
+                    </div>
+                    <div class="formRowRightCol">
+                        <select name="dropDownBreed" class="formDropdown" id="breed">
+                            <option>alpha</option>
+                            <option>beta</option>
+                            <option>gamma</option>
+                            <option>delta</option>
+                            <option>epsilon</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="formSubmitRow">
+                    <button id="searchFormSubmitButton" type="submit" value="submit">submit</button>
+                </div>
+            </form>
+        </div>
         <div class="mapArea" id="mapOfUsa"><h4>map of Usa</h4></div>
         <div class="resultArea"><h4>result area</h4></div>
         <div class="catInfo"><h4>cat info</h4></div>

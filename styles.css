@@ -31,21 +31,26 @@ svg {
 
 /* Don't change anything here */
 path, rect {
+    /* Do not remove this fill line below! */
 	fill: currentColor;
+
+    /* The color and width to draw the outlines of the states */
     stroke: #909090;
 	stroke-width: 1;
-    text-align: center;
-    justify-content: center;
+
+    /* Not sure if this is even needed */
+    /* text-align: center; */
+    /* justify-content: center; */
 }
 
 /* Color of the two letter abbreviations */
 .stateText {
     fill: #d0d0d0;
-    text-anchor: middle;
+    /* text-anchor: middle; */
     font-size: 0.9em;
 }
 
-/* Easiest way to color all states */
+/* Easiest way to color all states since each state is an anchor */
 a {
     color: #000040;
     transition: color 0.7s;
