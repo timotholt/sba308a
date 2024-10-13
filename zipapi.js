@@ -6,25 +6,37 @@
 
 export { zipCodesInRadius }
 
-let options = {
+let getZipCodesInRadiusOptions = {
     method: 'GET',
     url: `https://zip-api.eu/api/v1/radius/US-90012/5/km`
 };
 
 let zipUrlRadius = `https://zip-api.eu/api/v1/radius/`;
 let sCountry = 'US';                                        // We always use US for the country
-let sUnits = 'm'                                            // Miles = 'm', Kilometers = 'km'
+let sUnits = 'mi'                                           // Miles = 'mi', Kilometers = 'km'
 
 async function zipCodesInRadius(zipcode, radius) {
 
+    if (zipcode === null) {
+        throw new Error('Zipcode should not be null');
+    }
+
+    if (radius === null) {
+        throw new Error('Radius should not be null');
+    }
+
     let sZipcode = zipcode.toString();
-    let fullUrl = zipUrlRadius + sCountry + '-' + sZipcode + '/' + radius + '/' + sUnits;
-    debugger;
-    // console.log(fullUrl);
+    let sRadius = radius.toString();
+    let fullUrl = zipUrlRadius + sCountry + '-' + sZipcode + '/' + sRadius + '/' + sUnits;
+
     // console.log(`https://zip-api.eu/api/v1/radius/US-90012/500/km`)
 
-    try {   
-        const response = await axios.request(options);
+    try {
+
+        debugger;
+        console.log(fullUrl);
+        const response = await axios.get(fullUrl);
+        console.log(`Response: ${response.data}`);
         console.log(response.data);
     } catch (error) {
         console.error(error);
