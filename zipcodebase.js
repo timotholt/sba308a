@@ -1,6 +1,8 @@
 export { zipCodebaseTest, zipCodebaseCodesInRadius}
 
-// https://app.zipcodebase.com/email/verify
+
+// https://app.zipcodebase.com/api/v1/radius?apikey=d6970140-8981-11ef-a30e-81649cbcd7aa&code=10005&radius=100&country=us
+
 const zipCodebaseApiKey = "d6970140-8981-11ef-a30e-81649cbcd7aa";
 
 // Can't get imports to work so I gave up
@@ -24,8 +26,6 @@ async function zipCodebaseTest() {
 }
 
 
-// https://app.zipcodebase.com/api/v1/radius?apikey=d6970140-8981-11ef-a30e-81649cbcd7aa&code=10005&radius=100&country=us
-
 
 // Don't change these values// Don't change these values
 const sCountry = 'us';                                          // We always use 'us' for the country
@@ -46,8 +46,6 @@ async function zipCodebaseCodesInRadius(zipcode, radius) {
     let sRadius = radius.toString();
     let fullUrl = zipCodebaseRadiusUrl + '?apikey=' + zipCodebaseApiKey + '&code=' + sZipcode + '&radius=' + sRadius + '&country=' + sCountry + '&unit=' + sUnits;
 
-    // console.log(`https://zip-api.eu/api/v1/radius/US-90012/500/km`)
-
     try {
 
         debugger;
@@ -59,10 +57,5 @@ async function zipCodebaseCodesInRadius(zipcode, radius) {
         console.error(error);
     }
 }
-
-console.log("goodbye from zipapi.js");
-
-
-
 
 console.log("goodbye from zipcodebase.js");

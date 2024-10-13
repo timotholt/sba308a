@@ -13,6 +13,6 @@ const petName = getPetName("abj248l");
 // await zipCodebaseTest()
 
 // Free API
-// await zipApiCodesInRadius("90012", "5")
-await zipCodebaseCodesInRadius("90012", "5")
+await zipApiCodesInRadius("90012", "5")
+await zipCodebaseCodesInRadius("90012", "500")
 console.log(petName);
