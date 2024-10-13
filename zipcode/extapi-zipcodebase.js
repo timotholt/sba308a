@@ -47,7 +47,6 @@ async function zipCodebaseCodesInRadius(zipcode, radius) {
     let fullUrl = zipCodebaseRadiusUrl + '?apikey=' + zipCodebaseApiKey + '&code=' + sZipcode + '&radius=' + sRadius + '&country=' + sCountry + '&unit=' + sUnits;
 
     try {
-
         debugger;
         console.log(fullUrl);
         const response = await axios.get(fullUrl);
