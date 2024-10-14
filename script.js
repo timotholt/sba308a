@@ -104,6 +104,20 @@ debugger;
 let div = document.querySelector(".resultContainer");
 let card = makePetCard();
 div.appendChild(card);
+
+card = makePetCard();
+div.appendChild(card);
+
+card = makePetCard();
+div.appendChild(card);
+
+card = makePetCard();
+div.appendChild(card);
+
+card = makePetCard();
+div.appendChild(card);
+
+
 }
 
 // const petName = getPetName("abj248l");
