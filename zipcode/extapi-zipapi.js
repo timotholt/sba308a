@@ -52,7 +52,7 @@ async function zipApiGetCityFromZip(zipcode) {
         console.log(fullUrl);
         const response = await axios.get(fullUrl);
         console.log(`Response: ${response.data.place_name}`);
-        return (response.data.place_name);
+        return (response);
 
     } catch (error) {
         console.error(error);

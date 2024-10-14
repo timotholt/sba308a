@@ -2,6 +2,7 @@ export { autocompleteInit, isAutocompleteInitDone }
 import { fetchGeolocation, getZipcode } from "./ip/getip.js";
 import { getStateCodeByZipcode } from "./zipcode/zipcode-convert.js";
 import { zipApiGetCityFromZip } from "./zipcode/extapi-zipapi.js";
+import { setStatusMessage } from "./statusmessage.js";
 
 let autocompleteFinished = false;
 
@@ -12,13 +13,9 @@ function isAutocompleteInitDone() {
 async function autocompleteInit() {
 
     if (!autocompleteFinished) {
-        // Fill in the zip code box with GeoLocation
-        await autofillZipcode();
-        
-        // Attach event listener to zip code box
-        // document.getElementById("zipInput").addEventListener("focus", zipCodeMonitor);
-        // document.getElementById("zipInput").addEventListener("blur", zipCodeBlur);
 
+        // Fill in the zip code box with GeoLocation
+        await autofillZipcode();        
         autocompleteFinished = true;
     }
 }
@@ -45,75 +42,67 @@ function zipCodeMonitor(event) {
 
 async function autofillZipcode() {
 
-    debugger;
-
-
     try {
-
-        debugger;
 
         // Start the fetch IP     
         console.log("starting geolocation...");
 
-            await fetchGeolocation()
-            .then(() => {
-                const zip = addZipcodeToTextBox();
-                if (zip === null) {
-                    throw new Error("Zipcode is null");
-                }
-                return zip;
-            })
-            // .then(() => {
-            //     let city = addCityToZipcodeBox()
-            //     if (city === null) {
-            //         throw new Error("City is null");
-            //     }
-            //     return city;
-            // })
+        const zip = await fetchGeolocation()
+        .then(() => {
+            const zip = addZipcodeToTextBox();
+            if (zip === null) {
+                throw new Error("Zipcode is null");
+            }
+            return zip;
+        });
+
+        if (zip === null) {
+            throw new Error("Zipcode is null");
         }
+
+        const city = await fetchCityFromZipcode(zip)
+    }
     catch (error) {
         console.error(error);
     }
 }
 
-// async function fetchCityFromZipcode() {
 
-//     try {
-//         let zip;
-//         let city;
 
-//         // Start the fetch IP     
-//             .then(() => {
-//                 zip = addZipcodeToTextBox();
-//                 if (zip === null) {
-//                     throw new Error("Zipcode is null");
-//                 }
-//                 return zip;
-//             })
-//             .then(zip => {
-//                 if (zip === null) {
-//                     throw new Error("Zipcode is null");
-//                 } else {
-//                     return zipApiGetCityFromZip(zip);
-//                 }
-//             })
-//             .then(result => {
-//                 if (result === null) {
-//                     throw new Error("City is null");
-//                 }
-//                 city = result;
-//                 return result;
-//             });
+async function fetchCityFromZipcode(zipCode) {
 
-//         if (city === null) {
-//             throw new Error("City is still null after calling addCityToZipcodeBox");
-//         }
+    // Using regular expressions, check if zipcode is a 5-digit number
+    const regex = /^[0-9]{5}$/;
+    const isValidZip = regex.test(zipCode);
+    if (!isValidZip) {
+        setStatusMessage("Invalid zipcode");
+        return;
+    }
 
-//         addCityToZipcodeBox(city);
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
+    try {
+
+        debugger;
+
+        let response = await zipApiGetCityFromZip(zipCode)
+        .then((response) => {
+
+            debugger;
+
+            if (response && response.data && response.data.place_name) {
+                let city = response.data.place_name;
+                if (city.length > 0)
+                    setStatusMessage(city);
+                else
+                    setStatusMessage("Unknow zip code");
+            } else {
+                setStatusMessage("Can't get city from zip code");
+            }
+        })
+    } catch (error) {
+        setStatusMessage("Can't get city from zip code");
+        console.error(error);
+    }
+}
 
 function addZipcodeToTextBox() {
 
