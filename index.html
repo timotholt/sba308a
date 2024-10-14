@@ -90,7 +90,7 @@
         height: 0.5em;
     }
     
-    .formRow, .formSubmitRow {
+    .formRow, .formSubmitRow, .formStatusRow {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -102,6 +102,16 @@
     .formSubmitRow {
         margin-top: 0.8em;
         margin-bottom: 0.8em;
+    }
+
+    .formStatusRow {
+        margin-top: -0.5em;
+        margin-bottom: 0.0em;
+        font-size: 0.8em;
+    }
+
+    #formStatusMessage { 
+        padding-left: 0.5em;
     }
 
     .formRowLeftCol {
@@ -328,7 +338,10 @@
                             <input class="formTextBox" name="searchZip" id="zipInput" type="text" placeholder="5-digit code">
                         </div>
                     </div>
-                    <div class="spacerRow"></div>
+                    <div class="formStatusRow">
+                        <div class="formRowLeftCol"></div>
+                        <div class="formRowRightCol"><div id="formStatusMessage">Working</div></div>
+                    </div>
                     <div class="spacerRow"></div>                
                     <div class="formSubmitRow">
                         <button id="searchFormSubmitButton" type="submit" value="submit">submit</button>

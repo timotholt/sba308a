@@ -4,6 +4,7 @@ import { zipcodesInRadius } from "./zipcode/zipcode.js";
 
 import { isJsonSiloInitDone, jsonSiloInit } from "./simulate/jsonsilo.js";
 import { isAutocompleteInitDone, autocompleteInit } from "./autocomplete.js";
+import { setStatusMessage } from "./statusmessage.js";
 
 //===========================================================
 // When the DOM is done loading, fill in the zipcode box
@@ -16,6 +17,8 @@ function initSearchForm() {
 
     // Add the enabled class to the form
     document.querySelector("#searchFormInputs").classList.add("searchFormInputsEnabled");
+
+    setStatusMessage("Ready");
 }
 
 
@@ -26,6 +29,9 @@ async function initApp() {
 
     // Initialize the database engine
     if (!isJsonSiloInitDone()) {
+
+        setStatusMessage("Fetching users...");
+
         try {
             await jsonSiloInit();
         } catch (error) {
@@ -41,6 +47,8 @@ async function initApp() {
     // Initialize the autocomplete
     if (!isAutocompleteInitDone()) {
         try {
+            setStatusMessage("Fetching geolocation zip code...");
+
             await autocompleteInit();
         } catch (error) {
             console.error("Error initializing autocomplete: ", error);
