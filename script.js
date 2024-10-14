@@ -23,7 +23,7 @@ debugger;
 // When the DOM is done loading, fill in the zipcode box
 //===========================================================
 
-import { autocompleteZipcode } from "./autocomplete.js";
+import { autocompleteInit } from "./autocomplete.js";
 document.addEventListener("DOMContentLoaded", function() {
-    autocompleteZipcode();
+    autocompleteInit();
     }, false);
