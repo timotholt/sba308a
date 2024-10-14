@@ -17,6 +17,9 @@ async function autocompleteInit() {
         // Fill in the zip code box with GeoLocation
         await autofillZipcode();        
         autocompleteFinished = true;
+
+        // Attach event listener to zip code box
+        document.getElementById("zipInput").addEventListener("change", zipCodeMonitor, false);
     }
 }
 
@@ -24,13 +27,30 @@ function zipCodeMonitor(event) {
 
     // debugger;
 
-    // If this is a focus event, add the city if there is none
-    // if (event.type === "focus") {
-        // removeCityFrmoZipCodeBox();
-    // }
-    // else if (event.type === "blur") {
-        // addCityToZipcodeBox();
-    // }
+    try {
+
+        // If this is a change event
+        if (event.type === "change") {
+
+            const zipcodeBox = document.getElementById("zipInput");
+
+            if (zipcodeBox === null) {
+                throw new Error("Zip code box is null");
+            }
+
+            const zipcode = zipcodeBox.value;
+
+            if (zipcode === null || zipcode.length !== 5) {
+                throw new Error("Zipcode is null or has incorrect length");
+            }
+
+            fetchCityFromZipcode(zipcode);
+
+        }
+
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 // async function zipCodeBlur(event) {
@@ -90,9 +110,14 @@ async function fetchCityFromZipcode(zipCode) {
 
             if (response && response.data && response.data.place_name) {
                 let city = response.data.place_name;
-                if (city.length > 0)
-                    setStatusMessage(city);
-                else
+                if (city.length > 0) {
+
+                    // get 2 character zip code
+                    let stateCode = getStateCodeByZipcode(zipCode);
+
+                    // Display message
+                    setStatusMessage(city + ', ' + stateCode);
+                } else
                     setStatusMessage("Unknow zip code");
             } else {
                 setStatusMessage("Can't get city from zip code");

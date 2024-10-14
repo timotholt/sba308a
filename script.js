@@ -89,6 +89,7 @@ async function initApp() {
 
 
 
+
 // Initialize the map
 injectUsMap("mapOfUsa");
 

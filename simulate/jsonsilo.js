@@ -36,6 +36,9 @@ function cl(s) { if (consoleLogJsonSilo) console.log(s) }
 // Init the database (fetch all users and save it)
 async function jsonSiloInit() {
 
+
+    debugger;
+    
     cl("Initializing jsonSilo...");
 
     /* If we already fetched the data, don't fetch it again */
@@ -126,7 +129,7 @@ async function jsonSiloGetUserByUuid(uuid) {
     return foundUser;
 }
 
-async function jsonSiloUserListByZip(zipCodeList) {
+function jsonSiloUserListByZip(zipCodeList) {
 
     let result;
 
