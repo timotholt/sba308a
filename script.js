@@ -6,6 +6,8 @@ import { isJsonSiloInitDone, jsonSiloInit } from "./simulate/jsonsilo.js";
 import { isAutocompleteInitDone, autocompleteInit } from "./autocomplete.js";
 import { setStatusMessage } from "./statusmessage.js";
 
+import { petCardInit, makePetCard } from "./petcard.js";
+
 //===========================================================
 // When the DOM is done loading, fill in the zipcode box
 //===========================================================
@@ -70,6 +72,9 @@ async function initApp() {
     && isAutocompleteInitDone()
     ) {
 
+        // Initialize the petCard library
+        petCardInit("petCardTemplate");
+
         console.log("Everything is done, enabling form");
 
         // Enable the form
@@ -98,12 +103,11 @@ injectUsMap("mapOfUsa");
 document.addEventListener("DOMContentLoaded", async function() {
 
 
+    // Initialize the app
+    setTimeout(initApp, 1000);
 
     }, false);
 
-
-// Initialize the app
-setTimeout(initApp, 1000);
 
     
 // Zip Codebase Works

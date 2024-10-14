@@ -6,6 +6,29 @@ import { setStatusMessage } from "./statusmessage.js";
 
 let autocompleteFinished = false;
 
+
+// let lastSpecies  = -1;
+// let lastBreed    = -1;
+// let lastMiles    = -1;
+// let lastZipcode  = -1;
+
+// let species = null;
+// let breed = null;
+// let miles = null;
+// let zipCode = null;
+
+// async function statusCodeMonitor() {
+
+//     // If anything has changed...
+//     if (species != lastSpecies || breed != lastBreed || miles != lastMiles || zipCode != lastZipcode) {
+
+//         await fetchGeolocation();
+//     }
+
+//     // Come back a second later and check again
+//     setTimeout(statusCodeMonitor, 1000);
+// }
+
 function isAutocompleteInitDone() {
     return (autocompleteFinished);
 }
@@ -20,6 +43,9 @@ async function autocompleteInit() {
 
         // Attach event listener to zip code box
         document.getElementById("zipInput").addEventListener("change", zipCodeMonitor, false);
+
+        // Start status code monitor
+        // setTimeout(statusCodeMonitor, 1000);
     }
 }
 
@@ -86,8 +112,6 @@ async function autofillZipcode() {
         console.error(error);
     }
 }
-
-
 
 async function fetchCityFromZipcode(zipCode) {
 
