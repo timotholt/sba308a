@@ -24,6 +24,7 @@ let jsonSiloUserList;
 
 function isJsonSiloInitDone()
 {
+    console.log("jsonSiloInitDone: # users = " + (jsonSiloUserList?.length > 0));
     return jsonSiloUserList?.length > 0;
 }
 
@@ -65,7 +66,7 @@ async function jsonSiloInit() {
         jsonSiloUserList = JSON.parse(JSON.stringify(dbResponse.data));
     }
 
-    // Otherwise we got an errorare still waiting
+    // Otherwise we got an error
     else if (dbResponse.status < 200 || dbResponse.status > 300) {
         cl(`Error in jsonSiloInit: ${dbResponse.status} ${dbResponse.statusText}`);
     }

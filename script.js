@@ -18,9 +18,10 @@ function initSearchForm() {
     // Add the enabled class to the form
     document.querySelector("#searchFormInputs").classList.add("searchFormInputsEnabled");
 
-    setStatusMessage("Ready");
+    // setStatusMessage("Ready");
 }
 
+let fetchingUsers = false;
 
 // initialize the application. This is called every second checking to make sure everything is done
 async function initApp() {
@@ -30,7 +31,11 @@ async function initApp() {
     // Initialize the database engine
     if (!isJsonSiloInitDone()) {
 
-        setStatusMessage("Fetching users...");
+        if (!fetchingUsers) {
+
+            fetchingUsers = true;
+            setStatusMessage("Fetching users...");
+        }
 
         try {
             await jsonSiloInit();
