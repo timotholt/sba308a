@@ -72,9 +72,6 @@ async function initApp() {
     && isAutocompleteInitDone()
     ) {
 
-        // Initialize the petCard library
-        petCardInit("petCardTemplate");
-
         console.log("Everything is done, enabling form");
 
         // Enable the form
@@ -97,6 +94,9 @@ async function initApp() {
 
 // Initialize the map
 injectUsMap("mapOfUsa");
+// Initialize the petCard library
+petCardInit("petCardTemplate");
+
 
 // const petName = getPetName("abj248l");
 

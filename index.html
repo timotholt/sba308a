@@ -181,23 +181,25 @@
 
     /* ===================================================================*/
 
-    .resultContainer {
+    /* .resultContainer {
         display: grid;
         gap: 3em 3em;
         width: 1200px;
         grid-auto-flow: column;
-    }
+    } */
 
     .animalCard {
+
+        display: inline-block;
 
         background: linear-gradient(180deg, rgb(221, 220, 254) 0%, rgb(128, 167, 244) 100%);
         border: 2px solid var(--primary-background-color);
         /* background-color: rgb(180, 179, 216);; */
 
-        margin: 0em;
+        margin: 0em 2em 0em 0em;
         border-radius: 10px;
 
-        /* width: 25%; */
+        width: 30%;
         /* max-width: 25%; */
         height: auto;
     }
@@ -355,7 +357,7 @@
         <div class="resultArea">
 
             <div class="resultContainer">
-                <div class="c1" style="width: 400px">
+                <!-- <div class="c1" style="width: 400px"> -->
 
                     <!-- This is the card we remove from the DOM -->
                     <div class="animalCard" id="petCardTemplate">
@@ -415,8 +417,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="c2"  style="width: 400px">
+                <!-- </div>
+                <div class="c2"  style="width: 400px"> -->
                     <div class="animalCard">
                         <!-- Title of form -->
                         <div class="animalName">Felix &#128008;</div>
@@ -475,8 +477,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="c3"  style="width: 400px">
+                <!-- </div>
+                <div class="c3"  style="width: 400px"> -->
                     <div class="animalCard">
                         <!-- Title of form -->
                         <div class="animalName">Felix &#128008;</div>
@@ -535,8 +537,8 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
+<!-- 
+                </div> -->
             </div>
         </div>
         <!-- <div class="catInfo"><h4>cat info</h4></div> -->

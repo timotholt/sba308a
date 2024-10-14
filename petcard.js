@@ -10,7 +10,7 @@ export { petCardInit, makePetCard }
 
 let backupOfCardDiv;;
 
-// Here we backup the div used as a pet card
+// This is save to call over and over since we only do this once
 function petCardInit(divId) {
 
     console.log("petCardInit: " + divId);
@@ -51,4 +51,3 @@ function makePetCard() {
         return null;
     }
 }
-
