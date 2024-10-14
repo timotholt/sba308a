@@ -14,10 +14,8 @@ async function fetchGeolocation() {
 
         console.log(`(ASYNC) Your IP address is ${ip} (${response.data.city}, ${response.data.regionName}, ${zip})`);
 
-        debugger;
     } catch (error) {
         console.error(error);
-        debugger
     }
 }
 

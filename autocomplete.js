@@ -45,13 +45,13 @@ async function autofillZipcode() {
                 }
                 return zip;
             })
-            .then(() => {
-                let city = addCityToZipcodeBox()
-                if (city === null) {
-                    throw new Error("City is null");
-                }
-                return city;
-            })
+            // .then(() => {
+            //     let city = addCityToZipcodeBox()
+            //     if (city === null) {
+            //         throw new Error("City is null");
+            //     }
+            //     return city;
+            // })
         }
     catch (error) {
         console.error(error);

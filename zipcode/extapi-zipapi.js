@@ -31,7 +31,6 @@ async function zipApiCodesInRadius(zipcode, radius) {
 
     try {
 
-        debugger;
         console.log(fullUrl);
         const response = await axios.get(fullUrl);
         console.log(`Response: ${response.data}`);
@@ -50,7 +49,6 @@ async function zipApiGetCityFromZip(zipcode) {
     try {
         let sZipcode = zipcode.toString();
         let fullUrl = zipApiCityFromZipUrl + sCountry + '-' + sZipcode + '/';
-        debugger;       
         console.log(fullUrl);
         const response = await axios.get(fullUrl);
         console.log(`Response: ${response.data.place_name}`);
