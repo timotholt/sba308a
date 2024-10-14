@@ -50,6 +50,8 @@
     .ownerInfo { grid-area: ownerInfo }
     .ownerInfo ::first-letter { color: var(--primary-color) }
 
+
+    /* ===================================================================*/
     #searchForm {
         background: linear-gradient(180deg, hsla(220, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%);
 
@@ -130,6 +132,112 @@
     }
 
     #searchFormSubmitButton {
+
+        /* How to display the button */
+        /* display: inline-block; */
+
+        /* Size of button */
+        width: 5em;
+        height: 2.2em;
+
+        /* Spacing between button and text */
+        /* padding: 20px; */
+        /* margin: 4px 2px; */
+
+        /* Shape and color of button */
+        background-color: var(--primary-background-color);
+        border-radius: 4px;
+
+        /* Text inside button */
+        font-size: 1em;
+        text-align: center;
+        text-decoration: none;
+        align-items: center;
+        color: var(--primary-color);
+    }
+
+    /* ===================================================================*/
+
+    .animalCard {
+        background: linear-gradient(180deg, hsla(220, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%);
+
+        border: 2px solid var(--primary-background-color);
+        padding: 0em;
+        margin: 0em;
+        /* align-items: center; */
+        border-radius: 10px;
+    }
+
+    .animalName {
+        background-color: var(--primary-background-color);
+        color: var(--primary-color);
+        font-size: 1.2em;
+        letter-spacing: 0.05em;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 5px 5px 0px 0px;
+        padding: 0.3em 2em 0.3em 2em;
+    }
+
+    /* .spacerRow {
+        height: 0.5em;
+    } */
+
+    .cardRow, .cardSubmitRow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.2em 1.6em 0.2em 1.4em;
+        margin: 0.3em 0em 0em 0em;
+        height: 2em;
+    }
+
+    .cardSubmitRow {
+        margin-top: 0.8em;
+        margin-bottom: 0.8em;
+    }
+
+    .cardRowLeftCol {
+        width: 20%;
+        text-align: right;
+        padding-right: 1em;
+    }
+
+    .cardRowRightCol {
+        width: 80%;
+        padding-right: 1em;
+    }
+
+    .cardLabel {
+        padding: 0%;
+        margin: 0%;
+        font-size: 1.1em;
+        text-align: right;
+        width: 100%;
+    }
+
+    /* basic properties for textboxes and dropdowns */
+    .cardTextBox, .cardDropdown {
+        border-color: var(--primary-background-color);
+
+        font-family: 'Source Sans Pro', sans-serif; font-size: 18px; font-weight: 400;
+        color: black;
+
+        border-radius: 5px;
+        border-width: 1px;
+        padding: 0em 0.0em 0em 0.5em;
+        width: 100%;
+        height: 1.6em;
+    }
+
+    .cardDropdown {
+        height: 1.8em;
+        width: 104%;
+        padding: 0em 0.3em 0em 0.3em;
+        font-size: 1em;
+    }
+
+    .cardSubmitButton {
 
         /* How to display the button */
         /* display: inline-block; */
@@ -242,10 +350,73 @@
                 </div>
             </form>
         </div>
+
         <div class="mapArea" id="mapOfUsa"><h4>map of Usa</h4></div>
         <div class="resultArea" id="resultArea"><h4>result area</h4></div>
-        <div class="catInfo"><h4>cat info</h4></div>
-        <div class="ownerInfo"><h4>owner info</h4></div>
+
+            <div class id="">
+                <div class="animalCard">
+                    <!-- Title of form -->
+                    <div class="animalName">Felix &#128008;</div>
+                    
+                    <!-- Line #1 -->
+                    <div class="spacerRow"></div>
+                    <div class="cardRow">PICTURE GOES HERE</div>
+                    <div class="spacerRow"></div>
+
+                    <!-- Line #2 -->
+                    <div class="cardRow">
+                        <div class="cardRowLeftCol">
+                            <div class="cardLabel">Breed</div>
+                        </div>
+                        <div class="formRowRightCol">
+                            <div class="cardText">An expensive one</div>
+                        </div>
+                    </div>
+
+                    <!-- Line #3 -->
+                    <div class="spacerRow"></div>
+                    <div class="cardRow">
+                        <div class="cardRowLeftCol">
+                            <div class="cardLabel">Desciption</div>
+                        </div>
+                        <div class="formRowRightCol">
+                            <div class="cardText">Felix is an awesome cat!</div>
+                        </div>
+                    </div>
+
+                    <!-- Line #4 -->
+                    <div class="spacerRow"></div>
+                    <div class="cardRow">
+                        <div class="cardRowLeftCol">
+                            <div class="cardLabel">Owner</div>
+                        </div>
+                        <div class="formRowRightCol">
+                            <div class="cardText">Name</div>
+                        </div>
+                    </div>
+                    <div class="spacerRow"></div>
+                    <div class="cardRow">
+                        <div class="cardRowLeftCol">
+                            <div class="cardLabel">Phone</div>
+                        </div>
+                        <div class="formRowRightCol">
+                            <div class="cardText">555-555-5555</div>
+                        </div>
+                    </div>
+                    <div class="cardRow">
+                        <div class="cardRowLeftCol">
+                            <div class="cardLabel">Email</div>
+                        </div>
+                        <div class="formRowRightCol">
+                            <div class="cardText">ilovecats@catsareawesome.com</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="catInfo"><h4>cat info</h4></div> -->
+        <!-- <div class="ownerInfo"><h4>owner info</h4></div> -->
     </div>
 
     <!-- My code -->
