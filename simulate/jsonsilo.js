@@ -17,38 +17,66 @@
 
 const jsonSiloBaseUrl = `https://api.jsonsilo.com/public/b07d2a0d-022e-41e3-a3f6-2b4249e88f0a`;
 
-export { jsonSiloGetAllUsers, jsonSiloGetNumUsers, jsonSiloGetUserByIndex, jsonSiloGetUserByUuid, jsonSiloUserListByZip }
+export { jsonSiloInit, isJsonSiloInitDone, jsonSiloGetNumUsers, jsonSiloGetUserByIndex, jsonSiloGetUserByUuid, jsonSiloUserListByZip }
 
-const jsonSiloUserList = null;
+let dbResponse;
+let jsonSiloUserList;
 
-async function jsonSiloGetAllUsers() {
+function isJsonSiloInitDone()
+{
+    return jsonSiloUserList?.length > 0;
+}
+
+
+const consoleLogJsonSilo = false;
+
+function cl(s) { if (consoleLogJsonSilo) console.log(s) }
+
+// Init the database (fetch all users and save it)
+async function jsonSiloInit() {
+
+    cl("Initializing jsonSilo...");
 
     /* If we already fetched the data, don't fetch it again */
     if (jsonSiloUserList?.length > 0)
+    {
+        cl(`JsonSiloInit called but already have ${jsonSiloUserList.length} users`);
         return jsonSiloUserList;
+    }
 
-    // Fetch it and save it
-    try {
+    // If we haven't started fetching it, fetch it
+    else if (dbResponse === undefined) {
+
+        cl(`Fetching ${jsonSiloBaseUrl}...`);
+
         // Fetch it
-        const response = await axios.get(jsonSiloBaseUrl);
+        dbResponse = await axios.get(jsonSiloBaseUrl);
 
-        // Save it
-        jsonSiloUserList.push(...response.data);
+        cl(`axios.get returned ${dbResponse.status} ${dbResponse.statusText}`);
+    }
 
-        // Return it
-        return jsonSiloUserList;
-    } catch (error) {
-        console.error(error);
+    // Check if we got our data yet...
+    else if (dbResponse.data) {
+
+        // If we got it, save it
+        cl(`Got ${dbResponse.data.length} users from ${jsonSiloBaseUrl}`);
+
+        // Deep copy dbResponse.data into jsonSiloUserList
+        jsonSiloUserList = JSON.parse(JSON.stringify(dbResponse.data));
+    }
+
+    // Otherwise we got an errorare still waiting
+    else if (dbResponse.status < 200 || dbResponse.status > 300) {
+        cl(`Error in jsonSiloInit: ${dbResponse.status} ${dbResponse.statusText}`);
+    }
+
+    // Otherwise IDK what's happening
+    else {
+        cl(`Unknown error in jsonSiloInit: ${dbResponse.status} ${dbResponse.statusText}`);
     }
 }
 
 async function jsonSiloGetNumUsers() {
-    if (!jsonSiloUserList) {
-        await jsonSiloGetAllUsers();
-        if (!jsonSiloUserList) {
-            throw new Error("jsonSiloUserList is null after calling jsonSiloGetAllUsers()");
-        }
-    }
     return jsonSiloUserList.length;
 }
 
@@ -59,10 +87,7 @@ async function jsonSiloGetUserByIndex(n) {
     }
 
     if (jsonSiloUserList === null || jsonSiloUserList === undefined) {
-        await jsonSiloGetAllUsers();
-        if (jsonSiloUserList === null || jsonSiloUserList === undefined) {
-            throw new Error("jsonSiloUserList is null or undefined after calling jsonSiloGetAllUsers()");
-        }
+        throw new Error("jsonSiloUserList is null or undefined after calling jsonSiloGetAllUsers()");
     }
 
     if (n < 0 || n >= jsonSiloUserList.length) {
@@ -79,10 +104,7 @@ async function jsonSiloGetUserByUuid(uuid) {
     }
 
     if (jsonSiloUserList === null || jsonSiloUserList === undefined) {
-        await jsonSiloGetAllUsers();
-        if (jsonSiloUserList === null || jsonSiloUserList === undefined) {
-            throw new Error("jsonSiloUserList is null or undefined after calling jsonSiloGetAllUsers()");
-        }
+        throw new Error("jsonSiloUserList is null or undefined after calling jsonSiloGetAllUsers()");
     }
 
     if (jsonSiloUserList.length === 0) {
@@ -111,10 +133,7 @@ async function jsonSiloUserListByZip(zipCodeList) {
     // that are in the zip code list
 
     if (jsonSiloUserList === null || jsonSiloUserList === undefined) {
-        await jsonSiloGetAllUsers();
-        if (jsonSiloUserList === null || jsonSiloUserList === undefined) {
-            throw new Error("jsonSiloUserList is null or undefined after calling jsonSiloGetAllUsers()");
-        }
+        throw new Error("jsonSiloUserList is null or undefined after calling jsonSiloGetAllUsers()");
     }
 
     if (jsonSiloUserList.length === 0) {

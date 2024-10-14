@@ -1,16 +1,26 @@
-export { autocompleteInit }
+export { autocompleteInit, isAutocompleteInitDone }
 import { fetchGeolocation, getZipcode } from "./ip/getip.js";
 import { getStateCodeByZipcode } from "./zipcode/zipcode-convert.js";
 import { zipApiGetCityFromZip } from "./zipcode/extapi-zipapi.js";
 
+let autocompleteFinished = false;
+
+function isAutocompleteInitDone() {
+    return (autocompleteFinished);
+}
+
 async function autocompleteInit() {
 
-    // Fill in the zip code box with GeoLocation
-    autofillZipcode();
-    
-    // Attach event listener to zip code box
-    // document.getElementById("zipInput").addEventListener("focus", zipCodeMonitor);
-    // document.getElementById("zipInput").addEventListener("blur", zipCodeBlur);
+    if (!autocompleteFinished) {
+        // Fill in the zip code box with GeoLocation
+        await autofillZipcode();
+        
+        // Attach event listener to zip code box
+        // document.getElementById("zipInput").addEventListener("focus", zipCodeMonitor);
+        // document.getElementById("zipInput").addEventListener("blur", zipCodeBlur);
+
+        autocompleteFinished = true;
+    }
 }
 
 function zipCodeMonitor(event) {
@@ -35,8 +45,16 @@ function zipCodeMonitor(event) {
 
 async function autofillZipcode() {
 
+    debugger;
+
+
     try {
+
+        debugger;
+
         // Start the fetch IP     
+        console.log("starting geolocation...");
+
             await fetchGeolocation()
             .then(() => {
                 const zip = addZipcodeToTextBox();
