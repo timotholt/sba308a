@@ -10,6 +10,6 @@ Geolocation services:
 
 Zipcode math:
     GET:
-        https://zip-api.eu/api/v1/radius/           -- Get list of zipcodes within range (unlimited up to 147 miles) 
-        https://app.zipcodebase.com/api/v1/radius   -- Get list of zipcodes (very limited use, use sparingly)
+        https://zip-api.eu/api/v1/radius/           -- Get zipcodes within radius (unlimited free use, only works up to 147 miles) 
+        https://app.zipcodebase.com/api/v1/radius   -- Get zipcodes within radius (very limited use, use sparingly)
 

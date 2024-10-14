@@ -1,4 +1,4 @@
-import { getPetName } from "./petnames.js";
+import { getPetName } from "./fake/petnames.js";
 import { injectUsMap } from "./usmap/usmap.js";
 import { zipcodesInRadius } from "./zipcode/zipcode.js";
 
@@ -17,15 +17,13 @@ zipcodesInRadius("90012", "5");
 //  zipcodesInRadius("90012", "500");
 console.log(petName);
 
-
+debugger;
 
 //===========================================================
 // When the DOM is done loading, fill in the zipcode box
 //===========================================================
 
 import { autocompleteZipcode } from "./autocomplete.js";
-document.addEventListener("DOMContentLoaded", function()
-{
-        autocompleteZipcode();
-}, false);
-
+document.addEventListener("DOMContentLoaded", function() {
+    autocompleteZipcode();
+    }, false);
