@@ -36,13 +36,33 @@ function petCardInit(divId) {
 }
 
 // Make a new copy of the card and return it
-function makePetCard() {
+function makePetCard(   name = "A Surprising Find",
+                        img = "NO IMAGE",
+                        location="Sunnyvale, CA",
+                        breed="A Good One",
+                        desc="A happy little one",
+                        owner="It could be you",
+                        phone="(555) 555-5555",
+                        email="foo@example.com") {
 
     // If we have a backup
     if (backupOfCardDiv) {
 
         // Clone the div and all it's children
-        clonedDiv = document.querySelector(div).cloneNode(true);
+        let clonedDiv = backupOfCardDiv.cloneNode(true);
+
+
+        debugger;
+
+        // Populate it
+        clonedDiv.querySelector(".animalName").innerHTML       = name;
+        clonedDiv.querySelector(".pictureRow").innerHTML       = img;
+        clonedDiv.querySelector(".cardLocationText").innerHTML = location;
+        clonedDiv.querySelector(".cardBreedText").innerHTML    = breed;
+        clonedDiv.querySelector(".cardDescText").innerHTML     = desc;
+        clonedDiv.querySelector(".cardOwnerText").innerHTML    = owner;
+        clonedDiv.querySelector(".cardPhoneText").innerHTML    = phone;
+        clonedDiv.querySelector(".cardEmailText").innerHTML    = email;
 
         // And return it
         return (clonedDiv);

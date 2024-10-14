@@ -94,9 +94,17 @@ async function initApp() {
 
 // Initialize the map
 injectUsMap("mapOfUsa");
+
 // Initialize the petCard library
 petCardInit("petCardTemplate");
+debugger;
 
+{
+// Add a card to the list
+let div = document.querySelector(".resultContainer");
+let card = makePetCard();
+div.appendChild(card);
+}
 
 // const petName = getPetName("abj248l");
 
