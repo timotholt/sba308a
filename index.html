@@ -42,7 +42,7 @@
     .mapArea ::first-letter { color: var(--primary-color) }
 
     .resultArea { grid-area: resultArea;  }
-    .resultArea ::first-letter { color: var(--primary-color) }
+    /* .resultArea ::first-letter { color: var(--primary-color) } */
 
     .catInfo { grid-area: catInfo }
     .catInfo ::first-letter { color: var(--primary-color) }
@@ -170,7 +170,6 @@
         border: 2px solid var(--primary-background-color);
         /* background-color: rgb(200, 255, 0);; */
 
-        /* padding: 2em; */
         margin: 0em;
         border-radius: 10px;
 
@@ -192,20 +191,17 @@
 
     .cardRow {
         display: flex;
-        /* display: grid; */
-        /* flex-flow: column; */
         align-items: center;
-        justify-content:center;
-        padding: 0.2em 1.6em 0.2em 1.4em;
+        justify-content: center;
+        justify-content: space-between;
+        /* padding: 0.2em 2em 0.2em 0.8em; */
         margin: 0.3em 0em 0em 0em;
         height: 2em;
-        /* width: 100%; */
+        width: 100%;
     }
 
     .cardRowLeftCol {
-        width: 30%;
-        /* display: flex; */
-        /* text-align: right;    */
+        width: 20%;
         padding-right: 1em;
     }
 
