@@ -159,6 +159,7 @@ function jsonSiloUserListByZip(zipCodeList) {
 function jsonSiloGetUsersByState(stateAbbrev, maxUsers) {
 
     let foundUsers = [];
+    let numFoundUsers = 0;
     stateAbbrev = stateAbbrev.toUpperCase();
 
     if (stateAbbrev === null || stateAbbrev === undefined) {
@@ -193,6 +194,8 @@ function jsonSiloGetUsersByState(stateAbbrev, maxUsers) {
         }
     }
 
+    numFoundUsers = foundUsers.length;
+
     // Trim the list to maxUsers
     if (foundUsers.length > maxUsers)
         foundUsers = foundUsers.slice(0, maxUsers);
@@ -201,6 +204,6 @@ function jsonSiloGetUsersByState(stateAbbrev, maxUsers) {
     return {
         users: foundUsers,
         count: foundUsers.length,
-        maxCount: maxUsers
+        maxCount: numFoundUsers
     }
 }

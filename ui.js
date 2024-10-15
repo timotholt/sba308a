@@ -122,7 +122,7 @@ async function usMapMonitor(event) {
                                 searchResult.users[i].City + ", " + searchResult.users[i].State,
                                 "awesome breed*", // breed,
                                 searchResult.users[i].petDescription, // "awesome kitty*", //description,
-                                searchResult.users[i].GivenName,
+                                searchResult.users[i].GivenName + " " + searchResult.users[i].Surname,
                                 searchResult.users[i].TelephoneNumber, searchResult.users[i].EmailAddress);
 
         rc.appendChild(newPetCard);

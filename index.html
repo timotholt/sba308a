@@ -216,9 +216,9 @@
         padding: 0.3em 2em 0.3em 2em;
     }
 
-    .cardRow, .pictureRow, .cardLocationText {
+    .cardRow, .pictureRow, .cardLocationRow, .cardDescriptionRow {
         display: flex;
-        align-items: center;
+        align-items: top;
         justify-content: center;
         /* padding: 0.2em 2em 0.2em 0.8em; */
         margin: 0.3em 0em 0em 0em;
@@ -226,17 +226,27 @@
         width: 100%;
     }
 
+    .cardLocationRow {
+        height: 0.7em;
+        margin-bottom: 0.5em;
+    }
+
+    .cardLocationText {
+        height: 1.em;
+        padding: 0.3em 0.3em 0.3em 0.3em;
+        font-size: 1em;
+    }
+
+    .cardDescriptionRow {
+        min-height: 4em;
+        max-height: 4em;
+        padding-right: 2em;
+    }
+
     .pictureRow {
         padding: 1em;
         height: 180px;
     }
-
-    
-    .cardLocationText {
-        font-size: 0.8em;
-        padding: 2em;
-    }
-
 
     .cardRowLeftCol {
         width: 20%;
@@ -363,195 +373,70 @@
             <div id="resultMessage"></div>
 
             <div id="resultContainer">
-                <!-- <div class="c1" style="width: 400px"> -->
+                <!-- This is the card we remove from the DOM -->
+                <div class="animalCard" id="petCardTemplate">
+                    <!-- Title of form -->
+                    <div class="animalName">TEMPLATE of Felix &#128008;</div>
+                    
+                    <!-- Line #1 -->
+                    <!-- <div class="spacerRow"></div> -->
+                    <div class="pictureRow">PICTURE GOES HERE</div>
+                    <div class="cardLocationRow">
+                        <div class="cardLocationText">Sunnyvale, CA</div>
+                    </div>
+                    <div class="spacerRow"></div>
 
-                    <!-- This is the card we remove from the DOM -->
-                    <div class="animalCard" id="petCardTemplate">
-                        <!-- Title of form -->
-                        <div class="animalName">TEMPLATE of Felix &#128008;</div>
-                        
-                        <!-- Line #1 -->
-                        <div class="spacerRow"></div>
-                        <div class="pictureRow">PICTURE GOES HERE</div>
-                        <div class="cardRow">
-                            <div class="cardLocationText">Sunnyvale, CA</div>
+                    <!-- Line #2 -->
+                    <div class="cardRow">
+                        <div class="cardRowLeftCol">
+                            <div class="cardLabel">Breed</div>
                         </div>
-                        <div class="spacerRow"></div>
-
-                        <!-- Line #2 -->
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Breed</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardBreedText">An expensive one</div>
-                            </div>
-                        </div>
-
-                        <!-- Line #3 -->
-                        <div class="spacerRow"></div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Desc</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardDescText">Felix is an awesome cat!</div>
-                            </div>
-                        </div>
-
-                        <!-- Line #4 -->
-                        <div class="spacerRow"></div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Owner</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardOwnerText">Name</div>
-                            </div>
-                        </div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Phone</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardPhoneText">555-555-5555</div>
-                            </div>
-                        </div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Email</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardEmailText">ilovecats@catsareawesome.com</div>
-                            </div>
+                        <div class="cardRowRightCol">
+                            <div class="cardBreedText">An expensive one</div>
                         </div>
                     </div>
-                <!-- </div>
-                <div class="c2"  style="width: 400px"> -->
-                    <div class="animalCard">
-                        <!-- Title of form -->
-                        <div class="animalName">Felix &#128008;</div>
-                        
-                        <!-- Line #1 -->
-                        <div class="spacerRow"></div>
-                        <div class="cardRow">PICTURE GOES HERE</div>
-                        <div class="spacerRow"></div>
 
-                        <!-- Line #2 -->
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Breed</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardText">An expensive one</div>
-                            </div>
+                    <!-- Line #3 -->
+                    <div class="spacerRow"></div>
+                    <div class="cardDescriptionRow">
+                        <div class="cardRowLeftCol">
+                            <div class="cardLabel">Desc</div>
                         </div>
-
-                        <!-- Line #3 -->
-                        <div class="spacerRow"></div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Desc</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardText">Felix is an awesome cat!</div>
-                            </div>
-                        </div>
-
-                        <!-- Line #4 -->
-                        <div class="spacerRow"></div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Owner</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardText">Name</div>
-                            </div>
-                        </div>
-                        <div class="spacerRow"></div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Phone</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardText">555-555-5555</div>
-                            </div>
-                        </div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Email</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardText">ilovecats@catsareawesome.com</div>
-                            </div>
+                        <div class="cardRowRightCol">
+                            <div class="cardDescText">Felix is an awesome cat!</div>
                         </div>
                     </div>
-                <!-- </div>
-                <div class="c3"  style="width: 400px"> -->
-                    <div class="animalCard">
-                        <!-- Title of form -->
-                        <div class="animalName">Felix &#128008;</div>
-                        
-                        <!-- Line #1 -->
-                        <div class="spacerRow"></div>
-                        <div class="cardRow">PICTURE GOES HERE</div>
-                        <div class="spacerRow"></div>
 
-                        <!-- Line #2 -->
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Breed</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardText">An expensive one</div>
-                            </div>
+                    <!-- Line #4 -->
+                    <div class="spacerRow"></div>
+                    <div class="cardRow">
+                        <div class="cardRowLeftCol">
+                            <div class="cardLabel">Owner</div>
                         </div>
-
-                        <!-- Line #3 -->
-                        <div class="spacerRow"></div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Desc</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardText">Felix is an awesome cat!</div>
-                            </div>
-                        </div>
-
-                        <!-- Line #4 -->
-                        <div class="spacerRow"></div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Owner</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardText">Name</div>
-                            </div>
-                        </div>
-                        <div class="spacerRow"></div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Phone</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardText">555-555-5555</div>
-                            </div>
-                        </div>
-                        <div class="cardRow">
-                            <div class="cardRowLeftCol">
-                                <div class="cardLabel">Email</div>
-                            </div>
-                            <div class="cardRowRightCol">
-                                <div class="cardText">ilovecats@catsareawesome.com</div>
-                            </div>
+                        <div class="cardRowRightCol">
+                            <div class="cardOwnerText">Name</div>
                         </div>
                     </div>
-<!-- 
-                </div> -->
+                    <div class="cardRow">
+                        <div class="cardRowLeftCol">
+                            <div class="cardLabel">Phone</div>
+                        </div>
+                        <div class="cardRowRightCol">
+                            <div class="cardPhoneText">555-555-5555</div>
+                        </div>
+                    </div>
+                    <div class="cardRow">
+                        <div class="cardRowLeftCol">
+                            <div class="cardLabel">Email</div>
+                        </div>
+                        <div class="cardRowRightCol">
+                            <div class="cardEmailText">ilovecats@catsareawesome.com</div>
+                        </div>
+                    </div>
+                    <div class="spacerRow"></div>
+                </div>
             </div>
         </div>
-        <!-- <div class="catInfo"><h4>cat info</h4></div> -->
-        <!-- <div class="ownerInfo"><h4>owner info</h4></div> -->
     </div>
 
     <!-- My code -->
