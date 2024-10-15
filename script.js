@@ -97,23 +97,6 @@ injectUsMap("mapOfUsa");
 // Initialize the petCard library
 petCardInit("petCardTemplate");
 
-{
-// Add a card to the list
-// let div = document.querySelector("#resultContainer");
-// let card = makePetCard();
-// div.appendChild(card);
-// card = makePetCard();
-// div.appendChild(card);
-// card = makePetCard();
-// div.appendChild(card);
-// card = makePetCard();
-// div.appendChild(card);
-// card = makePetCard();
-// div.appendChild(card);
-}
-
-// const petName = getPetName("abj248l");
-
 document.addEventListener("DOMContentLoaded", async function() {
 
 
