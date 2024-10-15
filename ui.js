@@ -4,6 +4,8 @@ import { getStateCodeByZipcode } from "./zipcode/zipcode-convert.js";
 import { zipApiGetCityFromZip } from "./zipcode/extapi-zipapi.js";
 import { setStatusMessage } from "./statusmessage.js";
 
+import { petCardInit, makePetCard } from "./petcard.js";
+
 let uiBooted = false;
 
 
@@ -44,8 +46,78 @@ async function uiInit() {
         // Attach event listener to zip code box
         document.getElementById("zipInput").addEventListener("change", zipCodeMonitor, false);
 
+        // THIS MIGHT BREAK THE WHOLE APP   
+        // Attach event listener to US map
+        document.getElementById("mapOfUsa").addEventListener("click", usMapMonitor, false);
+
         // Start status code monitor
         // setTimeout(statusCodeMonitor, 1000);
+    }
+}
+
+async function usMapMonitor(event) {
+
+    let stateName;
+
+    debugger;
+
+    // Only process <a> events
+    if (event.target.tagName !== "A") {
+        return;
+    }
+
+    // If the ID of the element has a 2 character name
+    if (event.target.id.length !== 2)
+        return;
+
+    // If the ID isn't the list of states
+    stateName = getStateName(event.target.id);
+    if (stateName === null) {
+        return;
+    }
+
+    // Fetch users in the state
+    let searchResult = getUsersByState(event.target.id, 50);
+
+    // Find the DIVs to output results
+    let rm = document.getElementById("resultMessage");
+    let rc = document.getElementById("resultContainer");
+
+    // Remove all previous animals in the result area
+    document.getElementById("resultContainer").innerHTML = "";
+
+    // If we found no users...
+    if (usersInState.length === 0) {
+
+        // Let the user know
+        rm.innerHTML = "No animals in our database found for the state of " + getStateName(event.target.id);
+        return;
+    }
+
+    // Let the user know how many we found
+    rm.innerHTML = `Returning ${serachResult.count} of ${searchResult.maxCount} animals in ` + stateName;
+
+    // Then add each pet to the result area
+    for (let i = 0; i < searchResult.count; i++) {
+
+        // "GUID": "96854f95-5dc1-40ea-9f8f-6a9cc75c7aca",
+        // "GivenName": "Kristen",
+        // "Surname": "Gentry",
+        // "Gender": "female",
+        // "City": "Stlouis",
+        // "State": "MO",
+        // "ZipCode": "63101",
+        // "EmailAddress": "KristenBGentry@teleworm.us",
+        // "TelephoneNumber": "314-914-4762"
+
+        newPetCard = makePetCard(name,
+                                image,
+                                searchResult.City + ", " + searchResult.State,
+                                breed,
+                                description,
+                                searchResult.GivenName,
+                                searchResult.TelephoneNumber, searchResult.EmailAddress);
+        rc.appendChild(div);
     }
 }
 
