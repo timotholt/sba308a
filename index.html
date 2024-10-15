@@ -312,11 +312,17 @@
 
     /* ===================================================================*/
 
-/* Style the tab */
+/* Style the tab menu bar */
 .tab {
   overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  /* border: 1px solid #ccc; */
+  /* background-color: #f1f1f1; */
+  
+  /* Tim changes */
+  /* background-color: var(--primary-background-color); */
+  background: linear-gradient(180deg, rgb(221, 220, 254) 0%, rgb(128, 167, 244) 100%);
+  border: 1px solid var(--primary-background-color);
+  border-radius: 10px 10px 10px 10px;
 }
 
 /* Style the buttons inside the tab */
@@ -329,6 +335,8 @@
   padding: 14px 16px;
   transition: 0.3s;
   font-size: 17px;
+
+  color: var(--primary-color);
 }
 
 /* Change background color of buttons on hover */
@@ -338,7 +346,8 @@
 
 /* Create an active/current tablink class */
 .tab button.active {
-  background-color: #ccc;
+  /* background-color: #ccc; */
+  background-color: var(--primary-background-color);
 }
 
 /* Style the tab content */
@@ -456,14 +465,16 @@
         <div class="mapArea" id="mapOfUsa"><h4>map of Usa</h4></div>
         <div class="spacerRow"></div>
         <div class="resultArea">
-            <div id="resultMessage"></div>
 
             <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'resultTab')">Results</button>
+                <button class="tablinks active" onclick="openTab(event, 'resultTab')">Results</button>
                 <button class="tablinks" onclick="openTab(event, 'favoritesTab')">Favorites</button>
             </div>
 
             <div id="resultTab" class="tabcontent">
+
+                <div id="resultMessage"></div>
+
                 <div id="resultContainer">
                     <!-- This is the card we remove from the DOM -->
                     <div class="animalCard" id="petCardTemplate">
@@ -544,22 +555,23 @@
     <!-- <script type="module" src="./usmap/usmap.js"></script> -->
     <!-- <script type="module" src="./zipcodebase.js"></script> -->
 
-
     <!-- Lastly the tab code from w3schools -->
     <script>
-        function openTab(evt, cityName) {
-          var i, tabcontent, tablinks;
-          tabcontent = document.getElementsByClassName("tabcontent");
-          for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks");
-          for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
-          document.getElementById(cityName).style.display = "block";
-          evt.currentTarget.className += " active";
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
+
+        openTab(evt, "resultsTab");
         </script>
 </body>
 </html>

@@ -171,17 +171,17 @@ async function usMapMonitor(event) {
 
         debugger;
         let aTag = `<a href="mailto:${searchResult.users[i].EmailAddress}/>${searchResult.users[i].EmailAddress}</a>`;
-        console.log(aTag)
+        let imgTag = `<img class="petPic" src=${searchResult.users[i].petImage} loading="lazy">`;
 
         let newPetCard = makePetCard(
                                 searchResult.users[i].petName,
-                                `<img class="petPic" src=${searchResult.users[i].petImage} loading="lazy">`,
+                                imgTag,
                                 searchResult.users[i].City + ", " + searchResult.users[i].State,
                                 searchResult.users[i].petBreed,
                                 searchResult.users[i].petDescription,
                                 searchResult.users[i].GivenName + " " + searchResult.users[i].Surname,
                                 searchResult.users[i].TelephoneNumber,
-                                `<a href="mailto:${searchResult.users[i].EmailAddress}"/>${searchResult.users[i].EmailAddress}</a>`,
+                                aTag,
                                 searchResult.users[i].GUID,
                                 false);
 
