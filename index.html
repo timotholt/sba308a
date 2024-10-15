@@ -205,7 +205,10 @@
         height: auto;
     }
 
-    .animalName {
+    .animalNameRow {
+        display: flex;
+        align-items: top;
+        justify-content: space-between;
         background-color: var(--primary-background-color);
         color: var(--primary-color);
         font-size: 1.2em;
@@ -213,8 +216,24 @@
         font-weight: bold;
         text-align: center;
         border-radius: 5px 5px 0px 0px;
-        padding: 0.3em 2em 0.3em 2em;
+        padding: 0.3em 0.8em 0.3em 0.8em;
     }
+
+    .animalName, .heart {
+        background-color: var(--primary-background-color);
+        color: var(--primary-color);
+        font-size: 1.2em;
+        letter-spacing: 0.05em;
+        font-weight: bold;
+        text-align: center;
+        width: 90%;
+        /* border-radius: 5px 5px 0px 0px; */
+        /* padding: 0.3em 2em 0.3em 2em; */
+    }
+
+    .heart { width: 10%; opacity: 0.5;}
+    .heart:hover { opacity: 1 }
+    .heartLoved { opacity: 1}
 
     .cardRow, .pictureRow, .cardLocationRow, .cardDescriptionRow {
         display: flex;
@@ -314,10 +333,10 @@
                         <div class="formRowRightCol">
                             <select name="dropDownSpecies" class="formDropdown" id="species">
                                 <option>&#128008;&nbsp;cat</option>
-                                <option>&#128021;&nbsp;dog</option>
-                                <option>&#128014;&nbsp;horse</option>
-                                <option>&#128022;&nbsp;pig</option>
-                                <option>&#128018;&nbsp;monkey</option>
+                                <!-- <option>&#128021;&nbsp;dog</option> -->
+                                <!-- <option>&#128014;&nbsp;horse</option> -->
+                                <!-- <option>&#128022;&nbsp;pig</option> -->
+                                <!-- <option>&#128018;&nbsp;monkey</option> -->
                             </select>
                         </div>
                     </div>
@@ -376,7 +395,7 @@
                 <!-- This is the card we remove from the DOM -->
                 <div class="animalCard" id="petCardTemplate">
                     <!-- Title of form -->
-                    <div class="animalName">TEMPLATE of Felix &#128008;</div>
+                    <div class="animalNameRow"><div class="heart">❤️</div><div class="animalName">Felix &#128008;</div></div>
                     
                     <!-- Line #1 -->
                     <!-- <div class="spacerRow"></div> -->

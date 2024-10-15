@@ -1,7 +1,7 @@
 import { injectUsMap } from "./usmap/usmap.js";
 import { zipcodesInRadius } from "./zipcode/zipcode.js";
 
-import { isJsonSiloInitDone, jsonSiloInit } from "./user/jsonsilo.js";
+import { isJsonSiloInitDone, jsonSiloInit } from "./simulate/jsonsilo.js";
 import { isUiInitDone, uiInit } from "./ui.js";
 import { setStatusMessage } from "./statusmessage.js";
 

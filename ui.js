@@ -7,7 +7,7 @@ import { setStatusMessage } from "./statusmessage.js";
 import { petCardInit, makePetCard } from "./petcard.js";
 import { getStateName } from "./usmap/usmap.js";
 
-import { jsonSiloGetUsersByState } from "./user/jsonsilo.js";
+import { jsonSiloGetUsersByState } from "./simulate/jsonsilo.js";
 
 let uiBooted = false;
 
