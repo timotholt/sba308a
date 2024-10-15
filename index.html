@@ -309,6 +309,60 @@
         /* color: black; */
     }
 
+
+    /* ===================================================================*/
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  -webkit-animation: fadeEffect 1s;
+  animation: fadeEffect 1s;
+}
+
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+    /* ===================================================================*/
+
+
     </style>
 
         <!-- Include local copy of AXIOS -->
@@ -404,69 +458,80 @@
         <div class="resultArea">
             <div id="resultMessage"></div>
 
-            <div id="resultContainer">
-                <!-- This is the card we remove from the DOM -->
-                <div class="animalCard" id="petCardTemplate">
-                    <!-- Title of form -->
-                    <div class="animalNameRow"><div class="heart">❤️</div><div class="animalName">Felix &#128008;</div></div>
-                    
-                    <!-- Line #1 -->
-                    <!-- <div class="spacerRow"></div> -->
-                    <div class="pictureRow">PICTURE GOES HERE</div>
-                    <div class="cardLocationRow">
-                        <div class="cardLocationText">Sunnyvale, CA</div>
-                    </div>
-                    <div class="spacerRow"></div>
+            <div class="tab">
+                <button class="tablinks" onclick="openTab(event, 'resultTab')">Results</button>
+                <button class="tablinks" onclick="openTab(event, 'favoritesTab')">Favorites</button>
+            </div>
 
-                    <!-- Line #2 -->
-                    <div class="cardRow">
-                        <div class="cardRowLeftCol">
-                            <div class="cardLabel">Breed:</div>
+            <div id="resultTab" class="tabcontent">
+                <div id="resultContainer">
+                    <!-- This is the card we remove from the DOM -->
+                    <div class="animalCard" id="petCardTemplate">
+                        <!-- Title of form -->
+                        <div class="animalNameRow"><div class="heart">❤️</div><div class="animalName">Felix &#128008;</div></div>
+                        
+                        <!-- Line #1 -->
+                        <!-- <div class="spacerRow"></div> -->
+                        <div class="pictureRow">PICTURE GOES HERE</div>
+                        <div class="cardLocationRow">
+                            <div class="cardLocationText">Sunnyvale, CA</div>
                         </div>
-                        <div class="cardRowRightCol">
-                            <div class="cardBreedText">An expensive one</div>
-                        </div>
-                    </div>
+                        <div class="spacerRow"></div>
 
-                    <!-- Line #3 -->
-                    <div class="spacerRow"></div>
-                    <div class="cardDescriptionRow">
-                        <div class="cardRowLeftCol">
-                            <div class="cardLabel">Desc:</div>
+                        <!-- Line #2 -->
+                        <div class="cardRow">
+                            <div class="cardRowLeftCol">
+                                <div class="cardLabel">Breed:</div>
+                            </div>
+                            <div class="cardRowRightCol">
+                                <div class="cardBreedText">An expensive one</div>
+                            </div>
                         </div>
-                        <div class="cardRowRightCol">
-                            <div class="cardDescText">Felix is an awesome cat!</div>
-                        </div>
-                    </div>
 
-                    <!-- Line #4 -->
-                    <div class="spacerRow"></div>
-                    <div class="cardRow">
-                        <div class="cardRowLeftCol">
-                            <div class="cardLabel">Owner:</div>
+                        <!-- Line #3 -->
+                        <div class="spacerRow"></div>
+                        <div class="cardDescriptionRow">
+                            <div class="cardRowLeftCol">
+                                <div class="cardLabel">Desc:</div>
+                            </div>
+                            <div class="cardRowRightCol">
+                                <div class="cardDescText">Felix is an awesome cat!</div>
+                            </div>
                         </div>
-                        <div class="cardRowRightCol">
-                            <div class="cardOwnerText">Name</div>
+
+                        <!-- Line #4 -->
+                        <div class="spacerRow"></div>
+                        <div class="cardRow">
+                            <div class="cardRowLeftCol">
+                                <div class="cardLabel">Owner:</div>
+                            </div>
+                            <div class="cardRowRightCol">
+                                <div class="cardOwnerText">Name</div>
+                            </div>
                         </div>
+                        <div class="cardRow">
+                            <div class="cardRowLeftCol">
+                                <div class="cardLabel">Phone:</div>
+                            </div>
+                            <div class="cardRowRightCol">
+                                <div class="cardPhoneText">555-555-5555</div>
+                            </div>
+                        </div>
+                        <div class="cardRow">
+                            <div class="cardRowLeftCol">
+                                <div class="cardLabel">Email:</div>
+                            </div>
+                            <div class="cardRowRightCol">
+                                <div class="cardEmailText">ilovecats@catsareawesome.com</div>
+                            </div>
+                        </div>
+                        <div class="spacerRow"></div>
                     </div>
-                    <div class="cardRow">
-                        <div class="cardRowLeftCol">
-                            <div class="cardLabel">Phone:</div>
-                        </div>
-                        <div class="cardRowRightCol">
-                            <div class="cardPhoneText">555-555-5555</div>
-                        </div>
-                    </div>
-                    <div class="cardRow">
-                        <div class="cardRowLeftCol">
-                            <div class="cardLabel">Email:</div>
-                        </div>
-                        <div class="cardRowRightCol">
-                            <div class="cardEmailText">ilovecats@catsareawesome.com</div>
-                        </div>
-                    </div>
-                    <div class="spacerRow"></div>
                 </div>
+            <div id="favoritesTab" class="tabcontent">
+                <div id="favoritesContainer">
+                </div>          
+            </div>
             </div>
         </div>
     </div>
@@ -478,5 +543,23 @@
     <!-- <script type="module" src="./petnames.js"></script> -->
     <!-- <script type="module" src="./usmap/usmap.js"></script> -->
     <!-- <script type="module" src="./zipcodebase.js"></script> -->
+
+
+    <!-- Lastly the tab code from w3schools -->
+    <script>
+        function openTab(evt, cityName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(cityName).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+        </script>
 </body>
 </html>
