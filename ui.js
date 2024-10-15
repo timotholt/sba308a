@@ -7,10 +7,10 @@ export { uiInit, isUiInitDone }
 // ipgeolocation.js is the worst, but allows regular connections
 //
 // Ramifications: You can't use ip-api from github pages
-//
+//                ipgeolocation.io isn't as accurate as ip-api
 //=============================================================================
 
-// import { fetchGeolocation, getZipcode }   from "./ip/ipgeolocation.js";       // Worst but allows regular connections
+// import { fetchGeolocation, getZipcode } from "./ip/ipgeolocation.js";       // Worst but allows regular connections
 import { fetchGeolocation, getZipcode } from "./ip/ip-api.js";              // Best but doesn't allow secure connections
 
 import { getStateCodeByZipcode } from "./zipcode/zipcode-convert.js";
@@ -137,7 +137,8 @@ async function usMapMonitor(event) {
 
         let newPetCard = makePetCard(
                                 searchResult.users[i].petName,
-                                `<img src="https://cataas.com/cat?type=square&fit=cover&position=center&width=80&height=80" loading="lazy">`, //image,
+                                // `<img src="https://cataas.com/cat?type=square&fit=cover&position=center&width=80&height=80" loading="lazy">`, //image,
+                                `<img src="https://www.rd.com/wp-content/uploads/2021/04/GettyImages-1178098244.jpg?fit=270,180" loading="lazy">`,
                                 searchResult.users[i].City + ", " + searchResult.users[i].State,
                                 searchResult.users[i].petBreed,
                                 searchResult.users[i].petDescription,
