@@ -42,7 +42,7 @@
     .mapArea ::first-letter { color: var(--primary-color) }
 
     .resultArea { grid-area: resultArea;  }
-    #resultMessage { width: 100% }
+    #resultMessage { width: 100%; font-size: 2em; color: white; padding: 0.5em 0em 1em 0em; }
     /* .resultArea ::first-letter { color: var(--primary-color) } */
 
     .catInfo { grid-area: catInfo }
@@ -216,7 +216,7 @@
         padding: 0.3em 2em 0.3em 2em;
     }
 
-    .cardRow, .pictureRow {
+    .cardRow, .pictureRow, .cardLocationText {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -228,6 +228,13 @@
 
     .pictureRow {
     }
+
+    
+    .cardLocationText {
+        font-size: 0.8em;
+        padding: 2em;
+    }
+
 
     .cardRowLeftCol {
         width: 20%;
@@ -364,7 +371,7 @@
                         <!-- Line #1 -->
                         <div class="spacerRow"></div>
                         <div class="pictureRow">PICTURE GOES HERE</div>
-                        <div class="spacerRow">
+                        <div class="cardRow">
                             <div class="cardLocationText">Sunnyvale, CA</div>
                         </div>
                         <div class="spacerRow"></div>

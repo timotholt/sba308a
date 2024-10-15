@@ -118,14 +118,14 @@ async function usMapMonitor(event) {
         // "EmailAddress": "KristenBGentry@teleworm.us",
         // "TelephoneNumber": "314-914-4762"
 
-        let newPetCard = makePetCard(searchResult.GivenName + "'s pet",
+        let newPetCard = makePetCard(searchResult.users[i].GivenName + "'s pet",
                                 "", //image,
-                                searchResult.City + ", " + searchResult.State,
+                                searchResult.users[i].City + ", " + searchResult.users[i].State,
                                 "awesome breed*", // breed,
                                 "awesome kitty*", //description,
-                                searchResult.GivenName,
-                                searchResult.TelephoneNumber, searchResult.EmailAddress);
-                                
+                                searchResult.users[i].GivenName,
+                                searchResult.users[i].TelephoneNumber, searchResult.users[i].EmailAddress);
+
         rc.appendChild(newPetCard);
     }
 }
@@ -211,7 +211,7 @@ async function fetchCityFromZipcode(zipCode) {
         let response = await zipApiGetCityFromZip(zipCode)
         .then((response) => {
 
-            debugger;
+            // debugger;
 
             if (response && response.data && response.data.place_name) {
                 let city = response.data.place_name;
