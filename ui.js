@@ -137,8 +137,9 @@ async function usMapMonitor(event) {
 
         let newPetCard = makePetCard(
                                 searchResult.users[i].petName,
+                                `<img src=${searchResult.users[i].petImage} loading="lazy">`,
                                 // `<img src="https://cataas.com/cat?type=square&fit=cover&position=center&width=80&height=80" loading="lazy">`, //image,
-                                `<img src="https://www.rd.com/wp-content/uploads/2021/04/GettyImages-1178098244.jpg?fit=270,180" loading="lazy">`,
+                                // `<img src="https://www.rd.com/wp-content/uploads/2021/04/GettyImages-1178098244.jpg?fit=270,180" loading="lazy">`,
                                 searchResult.users[i].City + ", " + searchResult.users[i].State,
                                 searchResult.users[i].petBreed,
                                 searchResult.users[i].petDescription,
