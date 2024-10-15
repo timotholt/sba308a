@@ -114,7 +114,7 @@ async function usMapMonitor(event) {
     }
 
     // Let the user know how many we found
-    rm.innerHTML = `Returning ${searchResult.count} of ${searchResult.maxCount} animals in ${stateName}. \n<small>(All data is AI generated and hosted at jsonsilo.com)</small>`;
+    rm.innerHTML = `Returning ${searchResult.count} of ${searchResult.maxCount} animals in ${stateName}. \n<small>(All data previously AI generated and hosted through an API at jsonsilo.com)</small>`;
 
     // Then add each pet to the result area
     for (let i = 0; i < searchResult.count; i++) {
