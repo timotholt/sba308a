@@ -114,7 +114,7 @@ async function usMapMonitor(event) {
     }
 
     // Let the user know how many we found
-    rm.innerHTML = `Returning ${searchResult.count} of ${searchResult.maxCount} animals in ` + stateName;
+    rm.innerHTML = `Returning ${searchResult.count} of ${searchResult.maxCount} animals in ${stateName}. \n<small>(All data is AI generated and hosted at jsonsilo.com)</small>`;
 
     // Then add each pet to the result area
     for (let i = 0; i < searchResult.count; i++) {
@@ -130,16 +130,12 @@ async function usMapMonitor(event) {
         // "TelephoneNumber": "314-914-4762"
         // "petName": "Fluffy",
         // "petBreed": "Bengal",
-        // "petDescription": "Cute cat"
-
-        debugger;
-
+        // "petDescription": "Cute cat",
+        // "petImage: "https://images.dog.ceo/breeds/bengal/n02100401_1010.jpg"
 
         let newPetCard = makePetCard(
                                 searchResult.users[i].petName,
-                                `<img src=${searchResult.users[i].petImage} loading="lazy">`,
-                                // `<img src="https://cataas.com/cat?type=square&fit=cover&position=center&width=80&height=80" loading="lazy">`, //image,
-                                // `<img src="https://www.rd.com/wp-content/uploads/2021/04/GettyImages-1178098244.jpg?fit=270,180" loading="lazy">`,
+                                `<img class="petPic" src=${searchResult.users[i].petImage} loading="lazy">`,
                                 searchResult.users[i].City + ", " + searchResult.users[i].State,
                                 searchResult.users[i].petBreed,
                                 searchResult.users[i].petDescription,
