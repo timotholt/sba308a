@@ -17,7 +17,9 @@
 
 const jsonSiloBaseUrl = `https://api.jsonsilo.com/public/b07d2a0d-022e-41e3-a3f6-2b4249e88f0a`;
 
-export { jsonSiloInit, isJsonSiloInitDone, jsonSiloGetNumUsers, jsonSiloGetUserByIndex, jsonSiloGetUserByUuid, jsonSiloUserListByZip }
+export { jsonSiloInit, isJsonSiloInitDone, jsonSiloGetNumUsers, jsonSiloGetUserByIndex, jsonSiloGetUserByUuid, jsonSiloUserListByZip,
+    jsonSiloGetUsersByState
+ }
 
 let dbResponse;
 let jsonSiloUserList;
@@ -36,9 +38,6 @@ function cl(s) { if (consoleLogJsonSilo) console.log(s) }
 // Init the database (fetch all users and save it)
 async function jsonSiloInit() {
 
-
-    debugger;
-    
     cl("Initializing jsonSilo...");
 
     /* If we already fetched the data, don't fetch it again */
@@ -154,3 +153,45 @@ function jsonSiloUserListByZip(zipCodeList) {
     return foundUsers;
 }
 
+// From the list of users, find the users in the state with a maximum as a parameter
+function jsonSiloGetUsersByState(stateAbbrev, maxUsers) {
+
+    let foundUsers = [];
+    stateAbbrev = stateAbbrev.toUpperCase();
+
+    if (stateAbbrev === null || stateAbbrev === undefined) {
+        throw new Error("stateAbbrev is null or undefined");
+    }
+
+    if (jsonSiloUserList === null || jsonSiloUserList === undefined) {
+        throw new Error("jsonSiloUserList is null or undefined after calling jsonSiloGetAllUsers()");
+    }
+
+    if (jsonSiloUserList.length === 0) {
+        throw new Error("jsonSiloUserList is empty");
+    }
+
+    // const foundUsers = jsonSiloUserList.filter(user => {
+    //     if (user === null || user === undefined) {
+    //         throw new Error("user is null or undefined");
+    //     }
+    //     return user.state === stateAbbrev;  // user.state is a string
+    // });
+
+    for (let i = 0; i < jsonSiloUserList.length; i++) {
+        if (jsonSiloUserList[i].State === stateAbbrev) {
+            foundUsers.push(jsonSiloUserList[i]);
+        }
+    }
+
+    // Trim the list to maxUsers
+    if (foundUsers.length > maxUsers)
+        foundUsers = foundUsers.slice(0, maxUsers);
+
+    // Return an object with the users, the # users found and the max users passed
+    return {
+        users: foundUsers,
+        count: foundUsers.length,
+        maxCount: maxUsers
+    }
+}

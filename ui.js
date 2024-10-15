@@ -5,9 +5,11 @@ import { zipApiGetCityFromZip } from "./zipcode/extapi-zipapi.js";
 import { setStatusMessage } from "./statusmessage.js";
 
 import { petCardInit, makePetCard } from "./petcard.js";
+import { getStateName } from "./usmap/usmap.js";
+
+import { jsonSiloGetUsersByState } from "./simulate/jsonsilo.js";
 
 let uiBooted = false;
-
 
 // let lastSpecies  = -1;
 // let lastBreed    = -1;
@@ -58,26 +60,32 @@ async function uiInit() {
 async function usMapMonitor(event) {
 
     let stateName;
+    let stateAbbrev;
 
     debugger;
 
+    //=========================================
+
     // Only process <a> events
-    if (event.target.tagName !== "A") {
-        return;
-    }
+    // if (event.target.tagName !== "A") {
+    //     return;
+    // }
+
 
     // If the ID of the element has a 2 character name
-    if (event.target.id.length !== 2)
+    if (event.target.dataset?.id?.length !== 2)
         return;
 
+    stateAbbrev = event.target.dataset.id;
+
     // If the ID isn't the list of states
-    stateName = getStateName(event.target.id);
+    stateName = getStateName(stateAbbrev);
     if (stateName === null) {
         return;
     }
 
     // Fetch users in the state
-    let searchResult = getUsersByState(event.target.id, 50);
+    let searchResult = jsonSiloGetUsersByState(stateAbbrev, 50);
 
     // Find the DIVs to output results
     let rm = document.getElementById("resultMessage");
@@ -87,7 +95,7 @@ async function usMapMonitor(event) {
     document.getElementById("resultContainer").innerHTML = "";
 
     // If we found no users...
-    if (usersInState.length === 0) {
+    if (searchResult.length === 0) {
 
         // Let the user know
         rm.innerHTML = "No animals in our database found for the state of " + getStateName(event.target.id);
@@ -95,7 +103,7 @@ async function usMapMonitor(event) {
     }
 
     // Let the user know how many we found
-    rm.innerHTML = `Returning ${serachResult.count} of ${searchResult.maxCount} animals in ` + stateName;
+    rm.innerHTML = `Returning ${searchResult.count} of ${searchResult.maxCount} animals in ` + stateName;
 
     // Then add each pet to the result area
     for (let i = 0; i < searchResult.count; i++) {
@@ -110,14 +118,15 @@ async function usMapMonitor(event) {
         // "EmailAddress": "KristenBGentry@teleworm.us",
         // "TelephoneNumber": "314-914-4762"
 
-        newPetCard = makePetCard(name,
-                                image,
+        let newPetCard = makePetCard(searchResult.GivenName + "'s pet",
+                                "", //image,
                                 searchResult.City + ", " + searchResult.State,
-                                breed,
-                                description,
+                                "awesome breed*", // breed,
+                                "awesome kitty*", //description,
                                 searchResult.GivenName,
                                 searchResult.TelephoneNumber, searchResult.EmailAddress);
-        rc.appendChild(div);
+                                
+        rc.appendChild(newPetCard);
     }
 }
 
@@ -197,7 +206,7 @@ async function fetchCityFromZipcode(zipCode) {
 
     try {
 
-        debugger;
+        // debugger;
 
         let response = await zipApiGetCityFromZip(zipCode)
         .then((response) => {
