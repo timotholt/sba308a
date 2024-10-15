@@ -1,4 +1,3 @@
-import { getPetName } from "./simulate/petnames.js";
 import { injectUsMap } from "./usmap/usmap.js";
 import { zipcodesInRadius } from "./zipcode/zipcode.js";
 

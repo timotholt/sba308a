@@ -1,8 +1,8 @@
 //
-// JSONSilo is a fake database you can upload JSON data to and retrieve it via the very
-// barebones api. It's useful for testing and demo purposes.
+// JSONSilo is a JSON hosting service upload JSON data to and retrieve it via the very
+// barebones endpoints. It's useful for testing and demo purposes.
 //
-// I uploaded the fakeusers.json file to jsonsilo.com.  It's accessible through this
+// I uploaded the sample data I created to jsonsilo.com.  It's accessible through this
 // end point:
 //
 // https://api.jsonsilo.com/public/b07d2a0d-022e-41e3-a3f6-2b4249e88f0a/
@@ -16,8 +16,6 @@
 //
 
 const jsonSiloBaseUrl = `https://api.jsonsilo.com/public/b07d2a0d-022e-41e3-a3f6-2b4249e88f0a`;
-
-import { getPetName, getPetDescription } from "./petnames.js"; 
 
 export { jsonSiloInit, isJsonSiloInitDone, jsonSiloGetNumUsers, jsonSiloGetUserByIndex, jsonSiloGetUserByUuid, jsonSiloUserListByZip,
     jsonSiloGetUsersByState
@@ -183,13 +181,6 @@ function jsonSiloGetUsersByState(stateAbbrev, maxUsers) {
 
     for (let i = 0; i < jsonSiloUserList.length; i++) {
         if (jsonSiloUserList[i].State === stateAbbrev) {
-            // debugger;
-
-            // Fetch the name and description of the pet.  It's simulated because it's not part of the database
-            jsonSiloUserList[i].petName = getPetName(jsonSiloUserList[i].GUID)
-            jsonSiloUserList[i].petDescription = getPetDescription(jsonSiloUserList[i].GUID);
-
-            // Add it to the found list
             foundUsers.push(jsonSiloUserList[i]);
         }
     }

@@ -115,13 +115,19 @@ async function usMapMonitor(event) {
         // "ZipCode": "63101",
         // "EmailAddress": "KristenBGentry@teleworm.us",
         // "TelephoneNumber": "314-914-4762"
+        // "petName": "Fluffy",
+        // "petBreed": "Bengal",
+        // "petDescription": "Cute cat"
+
+        debugger;
+
 
         let newPetCard = makePetCard(
                                 searchResult.users[i].petName,
                                 `<img src="https://cataas.com/cat?type=square&fit=cover&position=center&width=80&height=80" loading="lazy">`, //image,
                                 searchResult.users[i].City + ", " + searchResult.users[i].State,
-                                "awesome breed*", // breed,
-                                searchResult.users[i].petDescription, // "awesome kitty*", //description,
+                                searchResult.users[i].petBreed,
+                                searchResult.users[i].petDescription,
                                 searchResult.users[i].GivenName + " " + searchResult.users[i].Surname,
                                 searchResult.users[i].TelephoneNumber, searchResult.users[i].EmailAddress);
 
