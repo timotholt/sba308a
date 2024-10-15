@@ -27,6 +27,9 @@ function petCardInit(divId) {
         // Clone the div and all it's children
         backupOfCardDiv = div.cloneNode(true);
 
+        // Remove the id from the cloned div
+        backupOfCardDiv.id = "";
+
         // Remove it from the DOM. Now it only exists in memory here.
         div.remove();
 
@@ -64,6 +67,9 @@ function makePetCard(   name = "A Surprising Find",
         clonedDiv.querySelector(".cardOwnerText").innerHTML    = owner;
         clonedDiv.querySelector(".cardPhoneText").innerHTML    = phone;
         clonedDiv.querySelector(".cardEmailText").innerHTML    = email;
+
+        // Set the ID of the card to the GUID of the animal in the form: "animal_#####-#####-#####-####-####-####"
+        clonedDiv.id = "animal_" + uuid;
 
         // Handle a ID for the heart
         let heartDiv = clonedDiv.querySelector(".heart");
