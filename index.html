@@ -42,6 +42,7 @@
     .mapArea ::first-letter { color: var(--primary-color) }
 
     .resultArea { grid-area: resultArea;  }
+    #resultMessage { width: 100% }
     /* .resultArea ::first-letter { color: var(--primary-color) } */
 
     .catInfo { grid-area: catInfo }
@@ -307,12 +308,7 @@
                             <label for="dropDownBreed" class="formLabel">beed</label>
                         </div>
                         <div class="formRowRightCol">
-                            <select name="dropDownBreed" class="formDropdown" id="breed">
-                                <option>any</option>
-                                <option>beta</option>
-                                <option>gamma</option>
-                                <option>delta</option>
-                                <option>epsilon</option>
+                            <select name="dropDownBreed" class="formDropdown" id="breedSelect">
                             </select>
                         </div>
                     </div>
@@ -355,6 +351,7 @@
         <div class="mapArea" id="mapOfUsa"><h4>map of Usa</h4></div>
         <div class="spacerRow"></div>
         <div class="resultArea">
+            <div id="resultMessage"></div>
 
             <div class="resultContainer">
                 <!-- <div class="c1" style="width: 400px"> -->
