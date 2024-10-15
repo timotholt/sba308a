@@ -333,7 +333,7 @@ const statesMap = new Map([
 ]);
 
 function getStateName(abbreviation) {
-    return statesMap.get(abbreviation) || null;
+    return statesMap.get(abbreviation.toUpperCase()) || null;
 }
 
 console.log(`Loaded usmap.js`)
