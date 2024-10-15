@@ -1,5 +1,18 @@
 export { uiInit, isUiInitDone }
-import { fetchGeolocation, getZipcode } from "./ip/getip.js";
+
+//=============================================================================
+// Two different Geolocation APIs
+//
+// ip-api.js is the best, but doesn't allow secure connections for free
+// ipgeolocation.js is the worst, but allows regular connections
+//
+// Ramifications: You can't use ip-api from github pages
+//
+//=============================================================================
+
+// import { fetchGeolocation, getZipcode }   from "./ip/ipgeolocation.js";       // Worst but allows regular connections
+import { fetchGeolocation, getZipcode } from "./ip/ip-api.js";              // Best but doesn't allow secure connections
+
 import { getStateCodeByZipcode } from "./zipcode/zipcode-convert.js";
 import { zipApiGetCityFromZip } from "./zipcode/extapi-zipapi.js";
 import { setStatusMessage } from "./statusmessage.js";

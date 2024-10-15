@@ -7,7 +7,7 @@ async function fetchGeolocation() {
     try {
         console.log('Fetching IP...');  
 
-        const response = await axios.get('https://ip-api.com/json/');
+        const response = await axios.get('http://ip-api.com/json/');
         // console.log(response.data); 
         ip = response.data.query;
         zip = response.data.zip;
@@ -23,5 +23,5 @@ function getZipcode() {
     return zip;
 }
 
-console.log("Loaded getip.js");
+console.log("Loaded ip-api.js");
 
