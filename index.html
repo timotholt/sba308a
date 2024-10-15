@@ -313,7 +313,7 @@
     /* ===================================================================*/
 
 /* Style the tab menu bar */
-.tab {
+.tabMenu {
   overflow: hidden;
   /* border: 1px solid #ccc; */
   /* background-color: #f1f1f1; */
@@ -323,10 +323,12 @@
   background: linear-gradient(180deg, rgb(221, 220, 254) 0%, rgb(128, 167, 244) 100%);
   border: 1px solid var(--primary-background-color);
   border-radius: 10px 10px 10px 10px;
+
+  width: fit-content
 }
 
 /* Style the buttons inside the tab */
-.tab button {
+.tabMenu button {
   background-color: inherit;
   float: left;
   border: none;
@@ -340,12 +342,12 @@
 }
 
 /* Change background color of buttons on hover */
-.tab button:hover {
+.tabMenu button:hover {
   background-color: #ddd;
 }
 
 /* Create an active/current tablink class */
-.tab button.active {
+.tabMenu button.active {
   /* background-color: #ccc; */
   background-color: var(--primary-background-color);
 }
@@ -466,12 +468,12 @@
         <div class="spacerRow"></div>
         <div class="resultArea">
 
-            <div class="tab">
+            <div class="tabMenu">
                 <button class="tablinks active" onclick="openTab(event, 'resultTab')">Results</button>
                 <button class="tablinks" onclick="openTab(event, 'favoritesTab')">Favorites</button>
             </div>
 
-            <div id="resultTab" class="tabcontent">
+            <div id="resultTab" class="tabcontent" style="display: block;">
 
                 <div id="resultMessage"></div>
 
@@ -558,6 +560,9 @@
     <!-- Lastly the tab code from w3schools -->
     <script>
         function openTab(evt, tabName) {
+
+            evt.preventDefault();
+            
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
@@ -570,8 +575,6 @@
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-
-        openTab(evt, "resultsTab");
         </script>
 </body>
 </html>
