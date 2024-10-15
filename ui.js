@@ -133,6 +133,10 @@ async function usMapMonitor(event) {
         // "petDescription": "Cute cat",
         // "petImage: "https://images.dog.ceo/breeds/bengal/n02100401_1010.jpg"
 
+        debugger;
+        let aTag = `<a href="mailto:${searchResult.users[i].EmailAddress}/>${searchResult.users[i].EmailAddress}</a>`;
+        console.log(aTag)
+
         let newPetCard = makePetCard(
                                 searchResult.users[i].petName,
                                 `<img class="petPic" src=${searchResult.users[i].petImage} loading="lazy">`,
@@ -140,7 +144,9 @@ async function usMapMonitor(event) {
                                 searchResult.users[i].petBreed,
                                 searchResult.users[i].petDescription,
                                 searchResult.users[i].GivenName + " " + searchResult.users[i].Surname,
-                                searchResult.users[i].TelephoneNumber, searchResult.users[i].EmailAddress);
+                                searchResult.users[i].TelephoneNumber,
+                                `<a href="mailto:${searchResult.users[i].EmailAddress}"/>${searchResult.users[i].EmailAddress}</a>`);
+                                // searchResult.users[i].EmailAddress);
 
         rc.appendChild(newPetCard);
     }
