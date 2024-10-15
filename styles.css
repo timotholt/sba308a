@@ -49,6 +49,8 @@ path, rect {
     fill: #d0d0d0;
     /* text-anchor: middle; */
     font-size: 0.9em;
+    /* Make it unclickable */
+    pointer-events: none;
 }
 
 /* Easiest way to color all states since each state is an anchor */
