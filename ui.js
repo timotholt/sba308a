@@ -1,10 +1,10 @@
-export { autocompleteInit, isAutocompleteInitDone }
+export { uiInit, isUiInitDone }
 import { fetchGeolocation, getZipcode } from "./ip/getip.js";
 import { getStateCodeByZipcode } from "./zipcode/zipcode-convert.js";
 import { zipApiGetCityFromZip } from "./zipcode/extapi-zipapi.js";
 import { setStatusMessage } from "./statusmessage.js";
 
-let autocompleteFinished = false;
+let uiBooted = false;
 
 
 // let lastSpecies  = -1;
@@ -29,17 +29,17 @@ let autocompleteFinished = false;
 //     setTimeout(statusCodeMonitor, 1000);
 // }
 
-function isAutocompleteInitDone() {
-    return (autocompleteFinished);
+function isUiInitDone() {
+    return (uiBooted);
 }
 
-async function autocompleteInit() {
+async function uiInit() {
 
-    if (!autocompleteFinished) {
+    if (!uiBooted) {
 
         // Fill in the zip code box with GeoLocation
         await autofillZipcode();        
-        autocompleteFinished = true;
+        uiBooted = true;
 
         // Attach event listener to zip code box
         document.getElementById("zipInput").addEventListener("change", zipCodeMonitor, false);

@@ -3,7 +3,7 @@ import { injectUsMap } from "./usmap/usmap.js";
 import { zipcodesInRadius } from "./zipcode/zipcode.js";
 
 import { isJsonSiloInitDone, jsonSiloInit } from "./simulate/jsonsilo.js";
-import { isAutocompleteInitDone, autocompleteInit } from "./autocomplete.js";
+import { isUiInitDone, uiInit } from "./ui.js";
 import { setStatusMessage } from "./statusmessage.js";
 
 import { petCardInit, makePetCard } from "./petcard.js";
@@ -51,12 +51,12 @@ async function initApp() {
         }
     }
 
-    // Initialize the autocomplete
-    if (!isAutocompleteInitDone()) {
+    // Initialize the UI
+    if (!isUiInitDone()) {
         try {
             setStatusMessage("Fetching geolocation zip code...");
 
-            await autocompleteInit();
+            await uiInit();
         } catch (error) {
             console.error("Error initializing autocomplete: ", error);
             if (error instanceof Error) {
@@ -69,7 +69,7 @@ async function initApp() {
 
     // If everything is done
     if (isJsonSiloInitDone()
-    && isAutocompleteInitDone()
+    && isUiInitDone()
     ) {
 
         console.log("Everything is done, enabling form");
