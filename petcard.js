@@ -43,7 +43,9 @@ function makePetCard(   name = "A Surprising Find",
                         desc="A happy little one",
                         owner="It could be you",
                         phone="(555) 555-5555",
-                        email="foo@example.com") {
+                        email="foo@example.com",
+                        uuid="",
+                        loved=false) {
 
     // If we have a backup
     if (backupOfCardDiv) {
@@ -62,6 +64,18 @@ function makePetCard(   name = "A Surprising Find",
         clonedDiv.querySelector(".cardOwnerText").innerHTML    = owner;
         clonedDiv.querySelector(".cardPhoneText").innerHTML    = phone;
         clonedDiv.querySelector(".cardEmailText").innerHTML    = email;
+
+        // Handle a ID for the heart
+        let heartDiv = clonedDiv.querySelector(".heart");
+        heartDiv.id = "heart_" + uuid;
+
+        // And if the card is loved...
+        if (loved) {
+            heartDiv.classList.add("love");
+        }
+        else {
+            heartDiv.classList.remove("love");
+        }
 
         // And return it
         return (clonedDiv);

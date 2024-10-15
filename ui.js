@@ -61,13 +61,49 @@ async function uiInit() {
         // Attach event listener to zip code box
         document.getElementById("zipInput").addEventListener("change", zipCodeMonitor, false);
 
-        // THIS MIGHT BREAK THE WHOLE APP   
         // Attach event listener to US map
         document.getElementById("mapOfUsa").addEventListener("click", usMapMonitor, false);
 
         // Start status code monitor
         // setTimeout(statusCodeMonitor, 1000);
     }
+}
+
+async function toggleFavoriteHandler(event) {
+
+    debugger;
+
+    async function setHeartState(animalId, state) {
+
+        // Call the API to toggle the heart
+        let response = await fetch(`/api/favorite/${animalId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                favorite: event.target.classList.contains("favourite")
+            })
+        });
+
+        if (!response.ok) {
+            alert("Error: " + response.statusText);
+        }   
+    }
+
+    // If we clicked a heart ...
+    if (event.target.id.startsWith("heart_")) {
+
+        // Get the id of the animal
+        let id = event.target.id.split("_")[1];
+        let loved;
+
+        // Toggle the heart
+        event.target.classList.toggle("love");
+        loved = !event.target.classList.contains("love");
+    }
+
+    //setHeartState(id, loved);
 }
 
 async function usMapMonitor(event) {
@@ -145,12 +181,17 @@ async function usMapMonitor(event) {
                                 searchResult.users[i].petDescription,
                                 searchResult.users[i].GivenName + " " + searchResult.users[i].Surname,
                                 searchResult.users[i].TelephoneNumber,
-                                `<a href="mailto:${searchResult.users[i].EmailAddress}"/>${searchResult.users[i].EmailAddress}</a>`);
-                                // searchResult.users[i].EmailAddress);
+                                `<a href="mailto:${searchResult.users[i].EmailAddress}"/>${searchResult.users[i].EmailAddress}</a>`,
+                                searchResult.users[i].GUID,
+                                false);
+
+        // Add event listener
+        newPetCard.addEventListener("click", toggleFavoriteHandler, false);
 
         rc.appendChild(newPetCard);
     }
 }
+
 
 function zipCodeMonitor(event) {
 
