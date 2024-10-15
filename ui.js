@@ -62,8 +62,6 @@ async function usMapMonitor(event) {
     let stateName;
     let stateAbbrev;
 
-    debugger;
-
     //=========================================
 
     // Only process <a> events
@@ -118,11 +116,12 @@ async function usMapMonitor(event) {
         // "EmailAddress": "KristenBGentry@teleworm.us",
         // "TelephoneNumber": "314-914-4762"
 
-        let newPetCard = makePetCard(searchResult.users[i].GivenName + "'s pet",
-                                "", //image,
+        let newPetCard = makePetCard(
+                                searchResult.users[i].petName,
+                                `<img src="https://cataas.com/cat?type=square&fit=cover&position=center&width=80&height=80" loading="lazy">`, //image,
                                 searchResult.users[i].City + ", " + searchResult.users[i].State,
                                 "awesome breed*", // breed,
-                                "awesome kitty*", //description,
+                                searchResult.users[i].petDescription, // "awesome kitty*", //description,
                                 searchResult.users[i].GivenName,
                                 searchResult.users[i].TelephoneNumber, searchResult.users[i].EmailAddress);
 
