@@ -2,8 +2,8 @@
 // JSONSilo is a JSON hosting service upload JSON data to and retrieve it via the very
 // barebones endpoints. It's useful for testing and demo purposes.
 //
-// I uploaded the sample data I created to jsonsilo.com.  It's accessible through this
-// end point:
+// I uploaded the sample data (stored in sampleuserdata.json) I created to jsonsilo.com.
+// It's accessible through this end point:
 //
 // https://api.jsonsilo.com/public/b07d2a0d-022e-41e3-a3f6-2b4249e88f0a/
 //
