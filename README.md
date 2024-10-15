@@ -23,7 +23,7 @@ Json Bulk Storage:
         GET:
             https://api.jsonsilo.com/public/b07d2a0d-022e-41e3-a3f6-2b4249e88f0a/
 
-![Alt text](https://github.com/timotholt/sba-308a/blob/main/screenshot2024-10-15.png)
+![Alt text](https://github.com/timotholt/sba-308a/blob/main/screenshot.png)
 
 | Requirement | Weight | Completed |
 | :--- | :---: | :---: |
