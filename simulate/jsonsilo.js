@@ -21,7 +21,7 @@ import { getPetName, getPetDescription } from "./petnames.js";
 
 export { jsonSiloInit, isJsonSiloInitDone, jsonSiloGetNumUsers, jsonSiloGetUserByIndex, jsonSiloGetUserByUuid, jsonSiloUserListByZip,
     jsonSiloGetUsersByState
- }
+}
 
 let dbResponse;
 let jsonSiloUserList;
