@@ -26,10 +26,9 @@ let jsonSiloUserList;
 
 function isJsonSiloInitDone()
 {
-    console.log("jsonSiloInitDone: # users = " + (jsonSiloUserList?.length > 0));
+    // console.log("jsonSiloInitDone: = " + (jsonSiloUserList?.length > 0));
     return jsonSiloUserList?.length > 0;
 }
-
 
 const consoleLogJsonSilo = false;
 

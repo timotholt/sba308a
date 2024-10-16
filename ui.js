@@ -91,7 +91,7 @@ async function uiInit() {
     }
 }
 
-const lastFavoritesList = [];
+let lastFavoritesList = [];
 
 async function autosaveFavorites() {
 
@@ -127,12 +127,22 @@ async function autosaveFavorites() {
 
         // If we have any favorites
         if (favoritesList?.length > 0) {
-            try {
+
+        // Do a deep match of the favorites list to the last vavorites list
+        if (JSON.stringify(favoritesList) === JSON.stringify(lastFavoritesList)) {
+            console.log("No change to favorites list, nothing to save.");
+        }
+
+        // Try to save favorites
+        else try {
+
                 // Save favorites to server
                 await saveFavorites(favoritesList);
 
+                console.log("Saved favorites!");
+
                 // Do a deep copy of the favorites list to the lastfavorites list
-                //lastFavoritesList = JSON.parse(JSON.stringify(favoritesList));
+                lastFavoritesList = JSON.parse(JSON.stringify(favoritesList));
 
             } catch (error) {
                 console.error("Error autosaving favorites:", error);
