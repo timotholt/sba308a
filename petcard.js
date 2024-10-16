@@ -56,8 +56,6 @@ function makePetCard(   name = "A Surprising Find",
         // Clone the div and all it's children
         let clonedDiv = backupOfCardDiv.cloneNode(true);
 
-        // debugger;
-
         // Populate it
         clonedDiv.querySelector(".animalName").innerHTML       = name;
         clonedDiv.querySelector(".pictureRow").innerHTML       = img;

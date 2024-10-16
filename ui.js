@@ -118,7 +118,7 @@ async function autosaveFavorites() {
                     GUID: id
                 };
 
-                console.log(individualFavorite);
+                // console.log(individualFavorite);
 
                 // Add to list
                 favoritesList.push(individualFavorite);    
@@ -130,7 +130,7 @@ async function autosaveFavorites() {
 
         // Do a deep match of the favorites list to the last vavorites list
         if (JSON.stringify(favoritesList) === JSON.stringify(lastFavoritesList)) {
-            console.log("No change to favorites list, nothing to save.");
+            console.log("Autosave: No change to the favorites list, nothing to save.");
         }
 
         // Try to save favorites
@@ -156,8 +156,6 @@ async function autosaveFavorites() {
 }
 
 async function toggleFavoriteHandler(event) {
-
-    debugger;
 
     // If we clicked a heart ...
     if (event.target.id.startsWith("heart_")) {
@@ -199,8 +197,6 @@ async function toggleFavoriteHandler(event) {
                     throw new Error("BAD BAD BAD: targetUuid is null");
                 }
                 else  {
-                    debugger;
-
                     let aTag = `<a href="mailto:${target.EmailAddress}/>${target.EmailAddress}</a>`;
                     let imgTag = `<img class="petPic" src=${target.petImage} loading="lazy">`;
 
@@ -264,8 +260,6 @@ async function toggleFavoriteHandler(event) {
 
                     // Toggle the heart state
                     heartDiv.classList.remove("love");
-
-                    debugger;
                 }
             }
         }
@@ -312,7 +306,6 @@ async function loadFavoritePets() {
                     throw new Error("BAD BAD BAD: targetUuid is null");
                 }
                 else  {
-debugger;
                     let aTag = `<a href="mailto:${target.EmailAddress}"/>${target.EmailAddress}</a>`;
                     let imgTag = `<img class="petPic" src=${target.petImage} loading="lazy">`;
 
@@ -338,6 +331,9 @@ debugger;
                 }
             }
         }
+
+        // Do a deep copy of the favorites list to the lastfavorites list
+        lastFavoritesList = JSON.parse(JSON.stringify(favoritesList));
 
     } catch (error) {
         console.error("Error loading favorites:", error);
@@ -456,8 +452,6 @@ async function usMapMonitor(event) {
 
 function zipCodeMonitor(event) {
 
-    // debugger;
-
     try {
 
         // If this is a change event
@@ -530,12 +524,8 @@ async function fetchCityFromZipcode(zipCode) {
 
     try {
 
-        // debugger;
-
         let response = await zipApiGetCityFromZip(zipCode)
         .then((response) => {
-
-            // debugger;
 
             if (response && response.data && response.data.place_name) {
                 let city = response.data.place_name;
@@ -594,8 +584,6 @@ function addZipcodeToTextBox() {
 // }
 
 // function removeCityFrmoZipCodeBox() {
-
-//     debugger;
 
 //     const zipcodeDiv = document.getElementById("zipInput");
 //     if (zipcodeDiv && zipcodeDiv.value.length > 0) {
