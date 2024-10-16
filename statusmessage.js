@@ -8,3 +8,5 @@ export function getLastStatusMessage() {
     let div = document.getElementById("formStatusMessage");
     return div.innerHTML;
 }
+
+console.log("Loaded statusmessage.js");

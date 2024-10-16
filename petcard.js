@@ -92,3 +92,5 @@ function makePetCard(   name = "A Surprising Find",
         return null;
     }
 }
+
+console.log("Loaded petcard.js");

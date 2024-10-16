@@ -23,8 +23,9 @@ let autoSaveTime = 10000;
 //                ipgeolocation.io isn't as accurate as ip-api
 //=============================================================================
 
-// import { fetchGeolocation, getZipcode } from "./ip/ipgeolocation.js";       // Worst but allows regular connections
-import { fetchGeolocation, getZipcode } from "./ip/ip-api.js";              // Best but doesn't allow secure connections
+import { fetchGeolocation,  getZipcode  } from "./ip/ip-api.js";              // Best but doesn't allow secure connections
+import { fetchGeolocation2, getZipcode2 } from "./ip/ipgeolocation.js";       // Worst but allows regular connections
+let geoLocationService = 1;
 
 import { getStateCodeByZipcode } from "./zipcode/zipcode-convert.js";
 import { zipApiGetCityFromZip } from "./zipcode/extapi-zipapi.js";
@@ -490,7 +491,7 @@ async function autofillZipcode() {
     try {
 
         // Start the fetch IP     
-        console.log("starting geolocation...");
+        console.log("Starting geolocation service #1...");
 
         const zip = await fetchGeolocation()
         .then(() => {
@@ -505,10 +506,39 @@ async function autofillZipcode() {
             throw new Error("Zipcode is null");
         }
 
-        const city = await fetchCityFromZipcode(zip)
+        const city = await fetchCityFromZipcode(zip);
     }
     catch (error) {
         console.error(error);
+
+        // Try the other geolocation service
+        try {
+            geoLocationService = 2;
+
+            // Start the fetch IP     
+            console.log("Starting geolocation service #2...");
+
+            const zip = await fetchGeolocation2()
+            .then(() => {
+                const zip = addZipcodeToTextBox();
+                if (zip === null) {
+                    throw new Error("Zipcode is null");
+                }
+                return zip;
+            });
+
+            if (zip === null) {
+                geoLocationService = 0;
+                throw new Error("Zipcode is null");
+            }
+
+            const city = await fetchCityFromZipcode(zip);
+            geoLocationService = 0;
+        }
+        catch (error) {
+            geoLocationService = 0;
+            console.error(error);
+        }    
     }
 }
 
@@ -550,8 +580,14 @@ async function fetchCityFromZipcode(zipCode) {
 
 function addZipcodeToTextBox() {
 
+    let zipcode;
+
     // Get the zipcode from the geolocation
-    const zipcode = getZipcode();
+    switch (geoLocationService) {
+        case 1: zipcode = getZipcode(); break;
+        case 2: zipcode = getZipcode2(); break;
+        default: return;
+    }
 
     // If zipcode is a valid US zipcode
     if (zipcode && getStateCodeByZipcode(zipcode)) {
@@ -594,3 +630,5 @@ function addZipcodeToTextBox() {
 //         }
 //     }
 // }
+
+console.log("Loaded ui.js");

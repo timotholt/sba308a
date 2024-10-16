@@ -2,12 +2,12 @@
 
 // https://api.ipgeolocation.io/ipgeo
 
-export { fetchGeolocation, getZipcode }
+export { fetchGeolocation2, getZipcode2 }
 
 let ip  = null;
 let zip = null;
 
-async function fetchGeolocation() {
+async function fetchGeolocation2() {
     try {
         console.log('Fetching IP...');  
 
@@ -26,8 +26,8 @@ async function fetchGeolocation() {
     }
 }
 
-function getZipcode() {
+function getZipcode2() {
     return zip;
 }
 
-console.log("Loaded ip-api.js");
+console.log("Loaded ipgeolocation.js");

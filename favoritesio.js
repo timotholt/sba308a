@@ -52,3 +52,4 @@ export async function loadFavorites() {
     }   
 }
 
+console.log("Loaded favoritesio.js");
