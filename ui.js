@@ -20,7 +20,7 @@ import { setStatusMessage } from "./statusmessage.js";
 import { petCardInit, makePetCard } from "./petcard.js";
 import { getStateName } from "./usmap/usmap.js";
 
-import { jsonSiloGetUsersByState } from "./simulate/jsonsilo.js";
+import { jsonSiloGetUsersByState, jsonSiloGetUserByUuid } from "./simulate/jsonsilo.js";
 
 let uiBooted = false;
 
@@ -100,10 +100,68 @@ async function toggleFavoriteHandler(event) {
 
         // Toggle the heart
         event.target.classList.toggle("love");
-        loved = !event.target.classList.contains("love");
-    }
 
-    //setHeartState(id, loved);
+        // Get the heart state
+        loved = event.target.classList.contains("love");
+
+        // If we are loved
+        if (loved) {
+
+            // Convert the heart_ name to animal_ name
+            let animalCardId = "#animal_" + id;
+            let favoriteCardId = "#favorite_" + id;
+
+            // Find the favorites container
+            let favoritesContainer = document.getElementById("favoritesContainer");
+
+            // See if this animal is already a child of the favoritesContainer
+            if (favoritesContainer !== null) {
+
+                let hasChildDiv = favoritesContainer.querySelector(favoriteCardId);
+
+                if (hasChildDiv !== null) {
+                    console.log(`${animalCardId} already in favorites list`);
+                    return;
+                }
+
+                // Find the card in the database
+                let target = jsonSiloGetUserByUuid(id);
+
+                if (target === null) {
+                    throw new Error("BAD BAD BAD: targetUuid is null");
+                }
+                else  {
+                    let aTag = `<a href="mailto:${target.EmailAddress}/>${target.EmailAddress}</a>`;
+                    let imgTag = `<img class="petPic" src=${target.petImage} loading="lazy">`;
+
+                    let newPetCard = makePetCard(
+                        target.petName,
+                        imgTag,
+                        target.City + ", " + target.State,
+                        target.petBreed,
+                        target.petDescription,
+                        target.GivenName + " " + target.Surname,
+                        target.TelephoneNumber,
+                        aTag,
+                        target.GUID,
+
+                        // And make the animal as loved and it's favorite
+                        true, true);
+
+                        // Add it to the favorites tab   
+                        favoritesContainer.appendChild(newPetCard);
+                }
+            }
+        }
+
+        // We are unloving a pet
+        else {
+
+        }
+    }
+    else {
+        console.log("not a heart event");
+    }
 }
 
 async function usMapMonitor(event) {
@@ -169,7 +227,6 @@ async function usMapMonitor(event) {
         // "petDescription": "Cute cat",
         // "petImage: "https://images.dog.ceo/breeds/bengal/n02100401_1010.jpg"
 
-        debugger;
         let aTag = `<a href="mailto:${searchResult.users[i].EmailAddress}/>${searchResult.users[i].EmailAddress}</a>`;
         let imgTag = `<img class="petPic" src=${searchResult.users[i].petImage} loading="lazy">`;
 

@@ -100,7 +100,7 @@ async function jsonSiloGetUserByIndex(n) {
     return jsonSiloUserList[n];
 }
 
-async function jsonSiloGetUserByUuid(uuid) {
+function jsonSiloGetUserByUuid(uuid) {
 
     if (uuid === null || uuid === undefined) {
         throw new Error("uuid is null or undefined");
@@ -118,7 +118,7 @@ async function jsonSiloGetUserByUuid(uuid) {
         if (user === null || user === undefined) {
             throw new Error("user is null or undefined");
         }
-        return user.uuid === uuid;
+        return user.GUID === uuid;
     });
 
     if (foundUser === undefined) {
