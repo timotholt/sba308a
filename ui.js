@@ -312,8 +312,8 @@ async function loadFavoritePets() {
                     throw new Error("BAD BAD BAD: targetUuid is null");
                 }
                 else  {
-
-                    let aTag = `<a href="mailto:${target.EmailAddress}/>${target.EmailAddress}</a>`;
+debugger;
+                    let aTag = `<a href="mailto:${target.EmailAddress}"/>${target.EmailAddress}</a>`;
                     let imgTag = `<img class="petPic" src=${target.petImage} loading="lazy">`;
 
                     let newPetCard = makePetCard(
@@ -388,7 +388,7 @@ async function usMapMonitor(event) {
     }
 
     // Let the user know how many we found
-    rm.innerHTML = `Returning ${searchResult.count} of ${searchResult.maxCount} animals in ${stateName}. \n<small>(All data previously AI generated and hosted through an API at jsonsilo.com)</small>`;
+    rm.innerHTML = `Returning ${searchResult.count} of ${searchResult.maxCount} animals in ${stateName}. \n<small>(Any duplicates are limitions of AI generating 5000 records.)</small>`;
 
     // Then add each pet to the result area
     for (let i = 0; i < searchResult.count; i++) {
@@ -430,9 +430,8 @@ async function usMapMonitor(event) {
         // "petBreed": "Bengal",
         // "petDescription": "Cute cat",
         // "petImage: "https://images.dog.ceo/breeds/bengal/n02100401_1010.jpg"
-
-        let aTag = `<a href="mailto:${searchResult.users[i].EmailAddress}/>${searchResult.users[i].EmailAddress}</a>`;
-        let imgTag = `<img class="petPic" src=${searchResult.users[i].petImage} loading="lazy">`;
+        let aTag = `<a href="mailto:${searchResult.users[i].EmailAddress}"/>${searchResult.users[i].EmailAddress}</a>`;
+        let imgTag = `<img class="petPic" src="${searchResult.users[i].petImage}" loading="lazy">`;
 
         let newPetCard = makePetCard(
                                 searchResult.users[i].petName,
