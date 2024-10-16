@@ -50,8 +50,8 @@ async function initApp() {
         }
     }
 
-    // Initialize the UI
-    if (!isUiInitDone()) {
+    // Initialize the UI AFTER the database engine
+    if (isJsonSiloInitDone() && !isUiInitDone()) {
         try {
             setStatusMessage("Fetching geolocation zip code...");
 

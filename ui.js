@@ -1,5 +1,7 @@
 export { uiInit, isUiInitDone }
 
+let autoSaveTime = 10000;
+
 //=============================================================================
 // Two different Geolocation APIs
 //
@@ -21,6 +23,8 @@ import { petCardInit, makePetCard } from "./petcard.js";
 import { getStateName } from "./usmap/usmap.js";
 
 import { jsonSiloGetUsersByState, jsonSiloGetUserByUuid } from "./simulate/jsonsilo.js";
+
+import { saveFavorites, loadFavorites } from "./favoritesio.js";
 
 let uiBooted = false;
 
@@ -64,9 +68,72 @@ async function uiInit() {
         // Attach event listener to US map
         document.getElementById("mapOfUsa").addEventListener("click", usMapMonitor, false);
 
+        // Load favorites
+        loadFavoritePets();
+
+        // Set "auto-save favorites" handler every 5 seconds
+        // setTimeout(autosaveFavorites, autoSaveTime);
+        setTimeout(autosaveFavorites, 60000);
+
         // Start status code monitor
         // setTimeout(statusCodeMonitor, 1000);
     }
+}
+
+const lastFavoritesList = [];
+
+async function autosaveFavorites() {
+
+    debugger;
+
+    // This JSON object holds all the favorites
+    let favoritesList = [];
+    let individualFavorite = {};
+
+    // For each card in the favorite list
+    let favoritesContainer = document.getElementById("favoritesContainer");
+    if (favoritesContainer !== null && favoritesContainer.children !== null) {
+    
+        // For each node
+        let cards = favoritesContainer.children;
+        for (let i = 0; i < cards.length; i++) {
+
+            // If it's a card
+            if (cards[i].id !== null && cards[i].id.startsWith("favorite_")) {
+
+                // Get the GUID
+                let id = cards[i].id.split("_")[1];
+
+                // Add it to the favoritesList object
+                individualFavorite = {
+                    GUID: id
+                };
+
+                console.log(individualFavorite);
+
+                // Add to list
+                favoritesList.push(individualFavorite);    
+            }
+        }
+
+        // If we have any favorites
+        if (favoritesList?.length > 0) {
+            try {
+                // Save favorites to server
+                await saveFavorites(favoritesList);
+
+                // Do a deep copy of the favorites list to the lastfavorites list
+                //lastFavoritesList = JSON.parse(JSON.stringify(favoritesList));
+
+            } catch (error) {
+                console.error("Error autosaving favorites:", error);
+            }
+
+        }
+    }
+
+    // and call our handler again
+    setTimeout(autosaveFavorites, autoSaveTime); 
 }
 
 async function toggleFavoriteHandler(event) {
@@ -131,6 +198,8 @@ async function toggleFavoriteHandler(event) {
                     throw new Error("BAD BAD BAD: targetUuid is null");
                 }
                 else  {
+                    debugger;
+
                     let aTag = `<a href="mailto:${target.EmailAddress}/>${target.EmailAddress}</a>`;
                     let imgTag = `<img class="petPic" src=${target.petImage} loading="lazy">`;
 
@@ -161,6 +230,74 @@ async function toggleFavoriteHandler(event) {
     }
     else {
         console.log("not a heart event");
+    }
+}
+
+async function loadFavoritePets() {
+
+    debugger;
+
+    try {
+
+        // Get the favorites from the server
+        let favoritesList = await loadFavorites();
+
+        // Get the favorite container
+        let favoritesContainer = document.getElementById("favoritesContainer");
+        if (favoritesContainer !== null) {
+
+            // Remove all existing child divs
+            favoritesContainer.innerHTML = '';
+
+            // For each favorite
+            for (let i = 0; i < favoritesList.length; i++) {
+
+                // Convert the heart_ name to animal_ name
+                // let animalCardId = "#animal_" + favoritesid;
+                let favoriteCardId = "#favorite_" + favoritesList[i].GUID;
+
+                // Is this favorite already in the favoritesContainer
+                let hasChildDiv = favoritesContainer.querySelector(favoriteCardId);
+
+                // Yes it is, flag the error
+                if (hasChildDiv !== null) {
+                    console.log(`${animalCardId} already in favorites tab!  Duplicate favorite!`);
+                    return;
+                }
+
+                // Find the card in the database
+                let target = jsonSiloGetUserByUuid(favoritesList[i].GUID);
+
+                if (target === null) {
+                    throw new Error("BAD BAD BAD: targetUuid is null");
+                }
+                else  {
+
+                    let aTag = `<a href="mailto:${target.EmailAddress}/>${target.EmailAddress}</a>`;
+                    let imgTag = `<img class="petPic" src=${target.petImage} loading="lazy">`;
+
+                    let newPetCard = makePetCard(
+                        target.petName,
+                        imgTag,
+                        target.City + ", " + target.State,
+                        target.petBreed,
+                        target.petDescription,
+                        target.GivenName + " " + target.Surname,
+                        target.TelephoneNumber,
+                        aTag,
+                        target.GUID,
+
+                        // And make the animal as loved and it's favorite
+                        true, true);
+
+                        // Add it to the favorites tab   
+                        favoritesContainer.appendChild(newPetCard);
+                }
+            }
+        }
+
+    } catch (error) {
+        console.error("Error loading favorites:", error);
     }
 }
 

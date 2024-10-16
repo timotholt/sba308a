@@ -1,0 +1,58 @@
+// https://jsonbox.cloud.exo-imaging.com/
+//
+// Allows only 2 accesses per second
+//
+// https://jsonbox.cloud.exo-imaging.com/box_23b8824b391c5b7af5ba
+
+
+
+// set favorites using axios
+export async function saveFavorites(array) {
+
+    debugger;
+
+    if (!array) {
+        throw new Error('saveFavorites: array is null or undefined');
+    }
+
+    // Send the array to the server
+    try {
+
+        debugger;
+
+        const response = await axios.post('https://jsonbox.cloud/exo-imaging/box_23b8824b391c5b7af5ba', array);
+        const data = await response.data;
+        if (!data) {
+            throw new Error('saveFavorites: response data is null or undefined');
+        }
+        return data;
+    } catch (error) {
+
+        debugger;
+
+        console.error(error);
+        throw error;
+    }
+}
+
+// get favorites using axios
+export async function loadFavorites() {
+
+    debugger;
+
+    try {
+        const response = await axios.get('https://jsonbox.cloud/exo-imaging/box_23b8824b391c5b7af5ba');
+        const data = await response.data;
+        if (!data) {
+            throw new Error('loadFavorites: response data is null or undefined');
+        }
+        return data;    
+    } catch (error) {
+
+        debugger;
+
+        console.error(error);           
+        throw error;
+    }   
+}
+

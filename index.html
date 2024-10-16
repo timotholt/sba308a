@@ -35,7 +35,6 @@
     .appTitle ::first-letter { color: var(--primary-color) }
 
     .searchFormColumn { grid-area: searchForm; height: 10%; width: 20em; border: 2px solid white;}
-    /* .searchFormColumn { border: 1px solid #d0d0d0; } */
     .searchFormColumn ::first-letter { color: var(--primary-color) }
     
     .mapArea { grid-area: mapArea; height: 10%; }
@@ -43,7 +42,6 @@
 
     .resultArea { grid-area: resultArea;  }
     #resultMessage, #favoritesMessage { width: 100%; font-size: 2em; color: white; padding: 0.5em 0em 1em 0em; }
-    /* .resultArea ::first-letter { color: var(--primary-color) } */
 
     .catInfo { grid-area: catInfo }
     .catInfo ::first-letter { color: var(--primary-color) }
@@ -170,7 +168,8 @@
 
         /* Shape and color of button */
         background-color: var(--primary-background-color);
-        border-radius: 4px;
+        /* border-radius: 4px; */
+        border-radius: 10px;
 
         /* Text inside button */
         font-size: 1em;
@@ -475,7 +474,7 @@
 
             <div id="resultTab" class="tabcontent" style="display: block;">
 
-                <div id="resultMessage"></div>
+                <div id="resultMessage">The results of any searches will appear here.</div>
 
                 <div id="resultContainer">
                     <!-- This is the card we remove from the DOM -->
