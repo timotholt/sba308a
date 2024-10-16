@@ -132,7 +132,7 @@ function addPetToTab(tab, petName, petImage, location, breed, description, owner
     }
 
     // Calculate the complex card text
-    let aTag   = `<a href="mailto:${ownerEmail}/>${ownerEmail}</a>`;
+    let aTag   = `<a href="mailto:${ownerEmail}"/>${ownerEmail}</a>`;
     let imgTag = `<img class="petPic" src=${petImage} loading="lazy">`;
 
     // Make the card
