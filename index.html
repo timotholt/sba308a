@@ -231,7 +231,14 @@
     }
 
     .heart { width: 10%; opacity: 0.5;}
-    .heart:hover { opacity: 1; cursor:grab; }
+    .heart:hover {
+        opacity: 1;
+        cursor:pointer;
+        color: #ff9999; /* Lighter shade of red */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Outer glow, white */
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        transform: scale(1.2); /* Slightly enlarge */
+}
     .love { opacity: 1}
 
     .cardRow, .pictureRow, .cardLocationRow, .cardDescriptionRow {

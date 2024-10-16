@@ -92,6 +92,107 @@ async function uiInit() {
     }
 }
 
+let numCardsResultTab = 0;
+let numCardsFavoriteTab = 0;
+const TAB_FAVORITES = Symbol("favorites");
+const TAB_RESULT    = Symbol("result");
+
+function resetTab(tab) {
+
+    // Get both divs
+    let resultDiv    = document.getElementById("resultContainer");
+    let favoritesDiv = document.getElementById("favoritesContainer");
+
+    // Get the div we are adding this card to
+    let targetDiv = (tab === TAB_RESULT) ? resultDiv : favoritesDiv;
+
+    // Reset the div
+    targetDiv.innerHTML = "";
+    (tab === TAB_RESULT) ? numCardsResultTab = 0 : numCardsFavoriteTab = 0; 
+}
+
+function addPetToTab(tab, petName, petImage, location, breed, description, ownerName, ownerPhone, ownerEmail, guid, isLoved) {
+
+    // Calculate card names for both 
+    let animalId = "#animal_" + guid;
+    let favoriteId = "#favorite_" + guid;
+    let favoritesTab = (tab === TAB_FAVORITES);
+
+    // Get both divs
+    let resultDiv    = document.getElementById("resultContainer");
+    let favoritesDiv = document.getElementById("favoritesContainer");
+
+    // Get the div we are adding this card to
+    let targetDiv = (tab === TAB_RESULT) ? resultDiv : favoritesDiv;
+    let targetId  = (tab === TAB_RESULT) ? animalId : favoriteId;
+
+    // Make sure the card doesn't exist already
+    if (targetDiv.querySelector(targetId) !== null) {
+        return;
+    }
+
+    // Calculate the complex card text
+    let aTag   = `<a href="mailto:${ownerEmail}/>${ownerEmail}</a>`;
+    let imgTag = `<img class="petPic" src=${petImage} loading="lazy">`;
+
+    // Make the card
+    let newCard = makePetCard(petName, imgTag, location, breed, description, ownerName, ownerPhone, aTag, guid, isLoved, favoritesTab);
+
+    // Add event listener to the card
+    newCard.addEventListener("click", toggleFavoriteHandler, false);
+
+    // Add the card to the target div
+    targetDiv.appendChild(newCard);
+
+    // Increase the count
+    (tab === TAB_RESULT) ? numCardsResultTab++ : numCardsFavoriteTab++;
+
+    // Change the message
+    setTabButtonMessage(tab, (tab === TAB_RESULT) ? `Results (${numCardsResultTab})` : `Favorites (${numCardsFavoriteTab})`);
+}
+
+function removePetFromTab(tab, guid) {
+    
+    // Calculate card names for both 
+    let animalId = "#animal_" + guid;
+    let favoriteId = "#favorite_" + guid;
+
+    // Get both divs
+    let resultDiv    = document.getElementById("resultContainer");
+    let favoritesDiv = document.getElementById("favoritesContainer");
+
+    // Get the div we are adding this card to
+    let targetDiv = (tab === TAB_RESULT) ? resultDiv : favoritesDiv;
+    let targetId  = (tab === TAB_RESULT) ? animalId : favoriteId;
+
+    // If the card exists
+    let targetCard = targetDiv.querySelector(targetId);
+    if (targetCard !== null) {
+
+        // Remove it from the div
+        targetDiv.removeChild(targetCard);
+
+        // Decrease the count
+        (tab === TAB_RESULT) ? numCardsResultTab-- : numCardsFavoriteTab--;
+
+        // Change the message
+        setTabButtonMessage(tab, (tab === TAB_RESULT) ? `Results (${numCardsResultTab})` : `Favorites (${numCardsFavoriteTab})`);
+        return;
+    }
+}
+
+function setTabButtonMessage(tab, message) {
+
+    // Get the div we are setting the message to
+    let targetDiv = (tab === TAB_RESULT) ?
+        document.getElementById("resultButton") :
+        document.getElementById("favoritesButton");
+
+    // Set the message
+    targetDiv.innerHTML = message;
+}
+
+
 let lastFavoritesList = [];
 
 async function autosaveFavorites() {
@@ -158,6 +259,8 @@ async function autosaveFavorites() {
 
 async function toggleFavoriteHandler(event) {
 
+    debugger;
+
     // If we clicked a heart ...
     if (event.target.id.startsWith("heart_")) {
 
@@ -174,95 +277,44 @@ async function toggleFavoriteHandler(event) {
         // If we are loved
         if (loved) {
 
-            // Convert the heart_ name to animal_ name
-            let animalCardId = "#animal_" + id;
-            let favoriteCardId = "#favorite_" + id;
+            // Find it in the database
+            let target = jsonSiloGetUserByUuid(id);
 
-            // Find the favorites container
-            let favoritesContainer = document.getElementById("favoritesContainer");
+            if (target === null) {
+                throw new Error("BAD BAD BAD: targetUuid is null");
+            }
+            else {
 
-            // See if this animal is already a child of the favoritesContainer
-            if (favoritesContainer !== null) {
-
-                let hasChildDiv = favoritesContainer.querySelector(favoriteCardId);
-
-                if (hasChildDiv !== null) {
-                    console.log(`${animalCardId} already in favorites list`);
-                    return;
-                }
-
-                // Find the card in the database
-                let target = jsonSiloGetUserByUuid(id);
-
-                if (target === null) {
-                    throw new Error("BAD BAD BAD: targetUuid is null");
-                }
-                else  {
-                    let aTag = `<a href="mailto:${target.EmailAddress}/>${target.EmailAddress}</a>`;
-                    let imgTag = `<img class="petPic" src=${target.petImage} loading="lazy">`;
-
-                    let newPetCard = makePetCard(
+                // Add it
+                addPetToTab(TAB_FAVORITES, 
                         target.petName,
-                        imgTag,
+                        target.petImage,
                         target.City + ", " + target.State,
                         target.petBreed,
                         target.petDescription,
                         target.GivenName + " " + target.Surname,
                         target.TelephoneNumber,
-                        aTag,
+                        target.EmailAddress,
                         target.GUID,
-
-                        // And make the animal as loved and it's favorite
-                        true, true);
-
-                    // Add event listener
-                    newPetCard.addEventListener("click", toggleFavoriteHandler, false);
-
-                    // Add it to the favorites tab   
-                    favoritesContainer.appendChild(newPetCard);
-                }
+                        true);
             }
         }
 
         // We are unloving a pet
         else {
+            removePetFromTab(TAB_FAVORITES, id);
 
-            // Convert the heart_ name to animal_ name
-            let animalCardId = "#animal_" + id;
-            let favoriteCardId = "#favorite_" + id;
-
-            // Find the favorites container
-            let favoritesContainer = document.getElementById("favoritesContainer");
-
-            // See if this animal is already a child of the favoritesContainer
-            if (favoritesContainer !== null) {
-
-                let hasChildDiv = favoritesContainer.querySelector(favoriteCardId);
-
-                // if the card is in the favoritesContainer
-                if (hasChildDiv !== null) {
-                    // remove it
-                    favoritesContainer.removeChild(hasChildDiv);
-                }
-            }
-
-            // Find the same card in the results tab
-            let resultsContainer = document.getElementById("resultContainer");
-
-            if (resultsContainer !== null) {
-
-                let hasChildDiv = resultsContainer.querySelector(animalCardId);
-
-                // if the card is in the resultsContainer
-                if (hasChildDiv !== null) {
-
-                    // Find the heart div
-                    let heartDiv = hasChildDiv.querySelector(".heart");
-
-                    // Toggle the heart state
+            // Find pet in the result tab
+            let resultDiv = document.getElementById("resultContainer");
+            let targetDiv = resultDiv.querySelector("#animal_" + id);
+            if (targetDiv !== null) {
+                // Find the heart div
+                let heartDiv = targetDiv.querySelector(".heart");
+                if (heartDiv !== null) {
                     heartDiv.classList.remove("love");
                 }
             }
+            // Remove heart from animal on the result tab
         }
     }
     else {
@@ -287,19 +339,6 @@ async function loadFavoritePets() {
             // For each favorite
             for (let i = 0; i < favoritesList.length; i++) {
 
-                // Convert the heart_ name to animal_ name
-                // let animalCardId = "#animal_" + favoritesid;
-                let favoriteCardId = "#favorite_" + favoritesList[i].GUID;
-
-                // Is this favorite already in the favoritesContainer
-                let hasChildDiv = favoritesContainer.querySelector(favoriteCardId);
-
-                // Yes it is, flag the error
-                if (hasChildDiv !== null) {
-                    console.log(`${animalCardId} already in favorites tab!  Duplicate favorite!`);
-                    return;
-                }
-
                 // Find the card in the database
                 let target = jsonSiloGetUserByUuid(favoritesList[i].GUID);
 
@@ -307,28 +346,19 @@ async function loadFavoritePets() {
                     throw new Error("BAD BAD BAD: targetUuid is null");
                 }
                 else  {
-                    let aTag = `<a href="mailto:${target.EmailAddress}"/>${target.EmailAddress}</a>`;
-                    let imgTag = `<img class="petPic" src=${target.petImage} loading="lazy">`;
 
-                    let newPetCard = makePetCard(
+                    // Add it
+                    addPetToTab(TAB_FAVORITES, 
                         target.petName,
-                        imgTag,
+                        target.petImage,
                         target.City + ", " + target.State,
                         target.petBreed,
                         target.petDescription,
                         target.GivenName + " " + target.Surname,
                         target.TelephoneNumber,
-                        aTag,
+                        target.EmailAddress,
                         target.GUID,
-
-                        // And make the animal as loved and it's favorite
-                        true, true);
-
-                        // Add event listener
-                        newPetCard.addEventListener("click", toggleFavoriteHandler, false);
-
-                        // Add it to the favorites tab   
-                        favoritesContainer.appendChild(newPetCard);
+                        true);
                 }
             }
         }
@@ -345,6 +375,8 @@ async function usMapMonitor(event) {
 
     let stateName;
     let stateAbbrev;
+
+    debugger;
 
     //=========================================
 
@@ -366,16 +398,16 @@ async function usMapMonitor(event) {
         return;
     }
 
-    // Fetch users in the state
-    let searchResult = jsonSiloGetUsersByState(stateAbbrev, 50);
+    // Remove all previous animals in the result area
+    resetTab(TAB_RESULT);
 
     // Find the DIVs to output results
     let rm = document.getElementById("resultMessage");
     let rc = document.getElementById("resultContainer");
 
-    // Remove all previous animals in the result area
-    document.getElementById("resultContainer").innerHTML = "";
-
+    // Fetch users in the state
+    let searchResult = jsonSiloGetUsersByState(stateAbbrev, 50);
+    
     // If we found no users...
     if (searchResult.length === 0) {
 
@@ -398,58 +430,27 @@ async function usMapMonitor(event) {
         // Get favorite container
         let favoritesContainer = document.getElementById("favoritesContainer");
 
-        // See if this animal is already a child of the favoritesContainer
+        // If there is a child element inside the favoritesContainer that matches the name
         if (favoritesContainer != null) {
-
-            // See if this animal is already a child of the favoritesContainer
-            if (favoritesContainer.children.length > 0) {
-                for (let i = 0; i < favoritesContainer.children.length; i++) {
-
-                    // If it's a card with the same name
-                    if (favoritesContainer.children[i].id === favName) {
-                        loved = true;
-                        break;
-                    }
-                }
+            let child = favoritesContainer.querySelector(`#${favName}`);
+            if (child !== null) {
+                loved = true;
             }
         }
 
-        // "GUID": "96854f95-5dc1-40ea-9f8f-6a9cc75c7aca",
-        // "GivenName": "Kristen",
-        // "Surname": "Gentry",
-        // "Gender": "female",
-        // "City": "Stlouis",
-        // "State": "MO",
-        // "ZipCode": "63101",
-        // "EmailAddress": "KristenBGentry@teleworm.us",
-        // "TelephoneNumber": "314-914-4762"
-        // "petName": "Fluffy",
-        // "petBreed": "Bengal",
-        // "petDescription": "Cute cat",
-        // "petImage: "https://images.dog.ceo/breeds/bengal/n02100401_1010.jpg"
-        let aTag = `<a href="mailto:${searchResult.users[i].EmailAddress}"/>${searchResult.users[i].EmailAddress}</a>`;
-        let imgTag = `<img class="petPic" src="${searchResult.users[i].petImage}" loading="lazy">`;
-
-        let newPetCard = makePetCard(
-                                searchResult.users[i].petName,
-                                imgTag,
-                                searchResult.users[i].City + ", " + searchResult.users[i].State,
-                                searchResult.users[i].petBreed,
-                                searchResult.users[i].petDescription,
-                                searchResult.users[i].GivenName + " " + searchResult.users[i].Surname,
-                                searchResult.users[i].TelephoneNumber,
-                                aTag,
-                                searchResult.users[i].GUID,
-                                loved);
-
-        // Add event listener
-        newPetCard.addEventListener("click", toggleFavoriteHandler, false);
-
-
-        rc.appendChild(newPetCard);
+        addPetToTab(TAB_RESULT, 
+            searchResult.users[i].petName,
+            searchResult.users[i].petImage,
+            searchResult.users[i].City + ", " + searchResult.users[i].State,
+            searchResult.users[i].petBreed,
+            searchResult.users[i].petDescription,
+            searchResult.users[i].GivenName + " " + searchResult.users[i].Surname,
+            searchResult.users[i].TelephoneNumber,
+            searchResult.users[i].EmailAddress,
+            searchResult.users[i].GUID,
+            loved);
     }
 }
-
 
 function zipCodeMonitor(event) {
 
@@ -488,14 +489,16 @@ function zipCodeMonitor(event) {
 
 async function autofillZipcode() {
 
+    let zip;
+
     try {
 
         // Start the fetch IP     
         console.log("Starting geolocation service #1...");
 
-        const zip = await fetchGeolocation()
+        zip = await fetchGeolocation()
         .then(() => {
-            const zip = addZipcodeToTextBox();
+            let zip = addZipcodeToTextBox();
             if (zip === null) {
                 throw new Error("Zipcode is null");
             }
