@@ -388,7 +388,7 @@ async function usMapMonitor(event) {
     }
 
     // Let the user know how many we found
-    rm.innerHTML = `Returning ${searchResult.count} of ${searchResult.maxCount} animals in ${stateName}. \n<small>(Any duplicates are limitions of AI generating 5000 records.)</small>`;
+    rm.innerHTML = `Returning ${searchResult.count} of ${searchResult.maxCount} animals in ${stateName}. \n<small></small>`;
 
     // Then add each pet to the result area
     for (let i = 0; i < searchResult.count; i++) {
