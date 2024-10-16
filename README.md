@@ -35,9 +35,6 @@ Favorites are stored at a different API cause of the free limitations in jsonsil
         GET & PUT:
             https://getpantry.cloud/apiv1/pantry/488d9dd7-d9d4-4de3-89ff-6f62f1d25417/basket/sba308a
 
-
-
-
 | Requirement | Weight | Completed |
 | :--- | :---: | :---: |
 | Use the fetch API or Axios to communicate with an external web API. Use the data provided by this API to populate your application’s content and features. | 20% | ✅ |
@@ -51,6 +48,8 @@ Ensure that the program runs without errors (comment out things that do not work
 Commit frequently to the git repository. | 5% | ✅ |
 Include a README file that contains a description of your application. | 2% | ✅ |
 Level of effort displayed in creativity, presentation, and user experience. | 5% | ✅ |
+
+The search box doesn't work yet, but clicking on a state does! Ran out of time.
 
 ---
 
