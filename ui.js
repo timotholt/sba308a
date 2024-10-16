@@ -2,6 +2,17 @@ export { uiInit, isUiInitDone }
 
 let autoSaveTime = 10000;
 
+// resultButton
+// favoritesButton
+
+// function setButtonTitle(buttonId, s) {
+
+//     let button = document.getElementById(buttonId);
+//     if (button !== null) {
+//         button.title = s;
+//     }
+// }
+
 //=============================================================================
 // Two different Geolocation APIs
 //
@@ -72,8 +83,8 @@ async function uiInit() {
         loadFavoritePets();
 
         // Set "auto-save favorites" handler every 5 seconds
-        // setTimeout(autosaveFavorites, autoSaveTime);
-        setTimeout(autosaveFavorites, 60000);
+        setTimeout(autosaveFavorites, autoSaveTime);
+        // setTimeout(autosaveFavorites, 60000);
 
         // Start status code monitor
         // setTimeout(statusCodeMonitor, 1000);
@@ -83,8 +94,6 @@ async function uiInit() {
 const lastFavoritesList = [];
 
 async function autosaveFavorites() {
-
-    debugger;
 
     // This JSON object holds all the favorites
     let favoritesList = [];
@@ -139,24 +148,6 @@ async function autosaveFavorites() {
 async function toggleFavoriteHandler(event) {
 
     debugger;
-
-    async function setHeartState(animalId, state) {
-
-        // Call the API to toggle the heart
-        let response = await fetch(`/api/favorite/${animalId}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                favorite: event.target.classList.contains("favourite")
-            })
-        });
-
-        if (!response.ok) {
-            alert("Error: " + response.statusText);
-        }   
-    }
 
     // If we clicked a heart ...
     if (event.target.id.startsWith("heart_")) {
@@ -217,8 +208,11 @@ async function toggleFavoriteHandler(event) {
                         // And make the animal as loved and it's favorite
                         true, true);
 
-                        // Add it to the favorites tab   
-                        favoritesContainer.appendChild(newPetCard);
+                    // Add event listener
+                    newPetCard.addEventListener("click", toggleFavoriteHandler, false);
+
+                    // Add it to the favorites tab   
+                    favoritesContainer.appendChild(newPetCard);
                 }
             }
         }
@@ -226,6 +220,44 @@ async function toggleFavoriteHandler(event) {
         // We are unloving a pet
         else {
 
+            // Convert the heart_ name to animal_ name
+            let animalCardId = "#animal_" + id;
+            let favoriteCardId = "#favorite_" + id;
+
+            // Find the favorites container
+            let favoritesContainer = document.getElementById("favoritesContainer");
+
+            // See if this animal is already a child of the favoritesContainer
+            if (favoritesContainer !== null) {
+
+                let hasChildDiv = favoritesContainer.querySelector(favoriteCardId);
+
+                // if the card is in the favoritesContainer
+                if (hasChildDiv !== null) {
+                    // remove it
+                    favoritesContainer.removeChild(hasChildDiv);
+                }
+            }
+
+            // Find the same card in the results tab
+            let resultsContainer = document.getElementById("resultContainer");
+
+            if (resultsContainer !== null) {
+
+                let hasChildDiv = resultsContainer.querySelector(animalCardId);
+
+                // if the card is in the resultsContainer
+                if (hasChildDiv !== null) {
+
+                    // Find the heart div
+                    let heartDiv = hasChildDiv.querySelector(".heart");
+
+                    // Toggle the heart state
+                    heartDiv.classList.remove("love");
+
+                    debugger;
+                }
+            }
         }
     }
     else {
@@ -234,8 +266,6 @@ async function toggleFavoriteHandler(event) {
 }
 
 async function loadFavoritePets() {
-
-    debugger;
 
     try {
 
@@ -289,6 +319,9 @@ async function loadFavoritePets() {
 
                         // And make the animal as loved and it's favorite
                         true, true);
+
+                        // Add event listener
+                        newPetCard.addEventListener("click", toggleFavoriteHandler, false);
 
                         // Add it to the favorites tab   
                         favoritesContainer.appendChild(newPetCard);
@@ -350,6 +383,30 @@ async function usMapMonitor(event) {
     // Then add each pet to the result area
     for (let i = 0; i < searchResult.count; i++) {
 
+        let loved = false;
+
+        // Calculate the favorite version of the name
+        let favName = `favorite_${searchResult.users[i].GUID}`;
+
+        // Get favorite container
+        let favoritesContainer = document.getElementById("favoritesContainer");
+
+        // See if this animal is already a child of the favoritesContainer
+        if (favoritesContainer != null) {
+
+            // See if this animal is already a child of the favoritesContainer
+            if (favoritesContainer.children.length > 0) {
+                for (let i = 0; i < favoritesContainer.children.length; i++) {
+
+                    // If it's a card with the same name
+                    if (favoritesContainer.children[i].id === favName) {
+                        loved = true;
+                        break;
+                    }
+                }
+            }
+        }
+
         // "GUID": "96854f95-5dc1-40ea-9f8f-6a9cc75c7aca",
         // "GivenName": "Kristen",
         // "Surname": "Gentry",
@@ -377,10 +434,11 @@ async function usMapMonitor(event) {
                                 searchResult.users[i].TelephoneNumber,
                                 aTag,
                                 searchResult.users[i].GUID,
-                                false);
+                                loved);
 
         // Add event listener
         newPetCard.addEventListener("click", toggleFavoriteHandler, false);
+
 
         rc.appendChild(newPetCard);
     }

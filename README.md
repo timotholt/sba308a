@@ -11,7 +11,8 @@ Uses all these external APIs:
 Geolocation services:
 
     ip-api.com -- Used to populate form box with the current zip code (GET)
-        GET: http://ip-api.com/json/                     
+        GET: http://ip-api.com/json/
+
 
 Zipcode math:
 
@@ -26,6 +27,15 @@ Json Bulk Storage:
     jsonsilo.com -- Used ONLY for the huge bulk searches processed internally by the app (unlimited API usage)
         GET:
             https://api.jsonsilo.com/public/b07d2a0d-022e-41e3-a3f6-2b4249e88f0a/
+
+Favorites are stored at a different API cause of the free limitations in jsonsilo.com:
+
+    getpantry.cloud -- Used to store the GUIDs of the favorite pets. getpantry.cloud isn't user friendly.
+
+        GET & PUT:
+            https://getpantry.cloud/apiv1/pantry/488d9dd7-d9d4-4de3-89ff-6f62f1d25417/basket/sba308a
+
+
 
 
 | Requirement | Weight | Completed |
@@ -60,8 +70,13 @@ This project includes a bunch of files:
 | zipcode/zipcode-convert.js | zipcode library |
 | zipcode/zipcode.js | zipcode library |
 | axios.js | TBD |
-| petcard.js | module for making the petcards at the bottom of the screen |
+| petcard.js | module for making the petcards at the bottom of the screen and in the favorites list |
+| favoritesio.js | module for doing I/O to getpantry.cloud |
 | statusmessage.js | for outputting status messages to the search box |
 | ui.js | the main UI processing for the app |
 | Includes | |
 | axios.min.js | Local copy of the Axios library |
+
+Useful but not used
+
+    ipgeolocation.js -- Geolocation data, but not as accurate as the other API

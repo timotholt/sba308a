@@ -6,17 +6,12 @@
 // set favorites using axios
 export async function saveFavorites(array) {
 
-    debugger;
-
     if (!array) {
         throw new Error('saveFavorites: array is null or undefined');
     }
 
     // Send the array to the server
     try {
-
-        debugger;
-
         const response = await axios.post('https://getpantry.cloud/apiv1/pantry/488d9dd7-d9d4-4de3-89ff-6f62f1d25417/basket/sba308a', { favorites: array } );
         const data = await response.data;
         if (!data) {
