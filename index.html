@@ -42,7 +42,7 @@
     .mapArea ::first-letter { color: var(--primary-color) }
 
     .resultArea { grid-area: resultArea;  }
-    #resultMessage { width: 100%; font-size: 2em; color: white; padding: 0.5em 0em 1em 0em; }
+    #resultMessage, #favoritesMessage { width: 100%; font-size: 2em; color: white; padding: 0.5em 0em 1em 0em; }
     /* .resultArea ::first-letter { color: var(--primary-color) } */
 
     .catInfo { grid-area: catInfo }
@@ -270,7 +270,7 @@
 
     small {
         font-size: 0.4em;
-        color: gray
+        color: var(--primary-color);
     }
 
     .petPic {
@@ -400,16 +400,16 @@
                             <label class="formLabel" for="searchName">name</label>
                         </div>
                         <div class="formRowRightCol">
-                            <input class="formTextBox" name="searchName" id="searchName" type="text" autofocus placeholder="what are you looking for">
+                            <input class="formTextBox" name="fSearchName" id="searchName" type="text" autofocus placeholder="what are you looking for">
                         </div>
                     </div>
                     <!-- Line #2 -->
                     <div class="formRow">
                         <div class="formRowLeftCol">
-                            <label for="dropDownSpecies" class="formLabel">species</label>
+                            <label for="species" class="formLabel">species</label>
                         </div>
                         <div class="formRowRightCol">
-                            <select name="dropDownSpecies" class="formDropdown" id="species">
+                            <select name="fDropDownSpecies" class="formDropdown" id="species">
                                 <option>&#128008;&nbsp;cat</option>
                                 <!-- <option>&#128021;&nbsp;dog</option> -->
                                 <!-- <option>&#128014;&nbsp;horse</option> -->
@@ -421,20 +421,20 @@
                     <!-- Line #3 -->
                     <div class="formRow">
                         <div class="formRowLeftCol">
-                            <label for="dropDownBreed" class="formLabel">beed</label>
+                            <label for="breedSelect" class="formLabel">beed</label>
                         </div>
                         <div class="formRowRightCol">
-                            <select name="dropDownBreed" class="formDropdown" id="breedSelect">
+                            <select name="fDropDownBreed" class="formDropdown" id="breedSelect">
                             </select>
                         </div>
                     </div>
                     <!-- Line #4 -->
                     <div class="formRow">
                         <div class="formRowLeftCol">
-                            <label for="dropDownDistance" class="formLabel">within</label>
+                            <label for="distance" class="formLabel">within</label>
                         </div>
                         <div class="formRowRightCol">
-                            <select name="dropDownDistance" class="formDropdown" id="distance">
+                            <select name="fDropDownDistance" class="formDropdown" id="distance">
                                 <option>within 1 miles</option>
                                 <option>within 2 miles</option>
                                 <option>within 5 miles</option>
@@ -446,7 +446,7 @@
                     <!-- Line #5 -->
                     <div class="formRow">
                         <div class="formRowLeftCol">
-                            <label for="searchZip" class="formLabel">zip</label>
+                            <label for="zipInput" class="formLabel">zip</label>
                         </div>
                         <div class="formRowRightCol">
                             <input class="formTextBox" name="searchZip" id="zipInput" type="text" placeholder="5-digit code">
@@ -543,6 +543,9 @@
                 </div>
             </div>
             <div id="favoritesTab" class="tabcontent">
+
+                <div id="favoritesMessage">If you have any favorites they will appear here.</div>
+
                 <div id="favoritesContainer">
                 </div>          
             </div>
