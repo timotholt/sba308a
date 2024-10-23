@@ -188,6 +188,12 @@ function setTabButtonMessage(tab, message) {
         document.getElementById("resultButton") :
         document.getElementById("favoritesButton");
 
+    // Remove the .blink class, and add it back in after 1 second.  This causes the button to blink.
+    targetDiv.classList.remove("blink");
+    setTimeout(() => {
+        targetDiv.classList.add("blink");
+    }, 1000);
+
     // Set the message
     targetDiv.innerHTML = message;
 }
@@ -376,7 +382,7 @@ async function usMapMonitor(event) {
     let stateName;
     let stateAbbrev;
 
-    debugger;
+    // debugger;
 
     //=========================================
 

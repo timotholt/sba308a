@@ -15,7 +15,7 @@
 
     :root {
         --primary-color: #d0d0d0;
-        --primary-middle-color: #808080;
+        --primary-middle-color: #707070;
         --primary-background-color: #000040;
     }
 
@@ -379,6 +379,27 @@
   to {opacity: 1;}
 }
 
+.blink {
+  animation: blink 1.5s linear;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
     /* ===================================================================*/
 
 
